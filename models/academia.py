@@ -1,4 +1,5 @@
-from models import Aluno
+from .aluno import Aluno
+from .professor import Professor
 
 class Academia:             # Classe
     def __init__(self):
