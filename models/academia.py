@@ -1,5 +1,5 @@
 class Academia:
-    def __init__(self):
+    def __init__(self, ):
         self.alunos = []
         self.professores = []
 
@@ -15,8 +15,8 @@ class Academia:
     def buscar_aluno(self):
         cpf_procurado = input('Digite o CPF do aluno procurado: ')
 
-        if cpf_procurado == cpf.     # Terminar essa linha!
-            print(f'Aluno {nome. } encontrado')
+        if cpf_procurado in self.alunos[cpf]:   # Terminar essa linha!
+            print(f'Aluno {self.nome} encontrado')
 
     def listar_alunos(self):
         for aluno in lista_alunos:
