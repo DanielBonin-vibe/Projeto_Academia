@@ -1,10 +1,10 @@
 class Aluno:
-    def __init__(self, nome, idade, cpf, plano, ativo):
+    def __init__(self, nome, idade, cpf, plano):
         self.nome = nome
         self.idade = idade
         self.cpf = cpf
         self.plano = plano
-        self.ativo = True
+        
 
     def exibir_dados(self):
         print(f'Nome: {self.nome}')

@@ -1,3 +1,5 @@
+import Aluno
+
 class Professor:
     def __init__(self, nome, especialidade):
         self.nome = nome

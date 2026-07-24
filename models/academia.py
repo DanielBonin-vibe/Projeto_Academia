@@ -1,29 +1,41 @@
-class Academia:
-    def __init__(self, ):
+from models import Aluno
+
+class Academia:             # Classe
+    def __init__(self):
         self.alunos = []
         self.professores = []
 
-    def cadastrar_aluno(self, nome, idade, cpf, plano, ativo):
-        self.nome_aluno = nome
-        self.idade_aluno = idade
-        self.cpf_aluno = cpf
-        self.plano_aluno = plano
-        self.ativo_aluno = ativo
+    def cadastrar_aluno(self, nome, idade, cpf, plano):
+        aluno = Aluno(nome, idade, cpf, plano)              # Criamos um objeto chamado 'aluno' que recebe uma classe que irá receber os parâmetros
+        self.alunos.append(aluno)                           # Damos um append para adicionar o aluno a lista self.alunos
 
-    def remover_aluno(self):
-
-    def buscar_aluno(self):
-        cpf_procurado = input('Digite o CPF do aluno procurado: ')
-
-        if cpf_procurado in self.alunos[cpf]:   # Terminar essa linha!
-            print(f'Aluno {self.nome} encontrado')
+    def remover_aluno(self, cpf):
+        for aluno in self.alunos:                           # Para o objeto 'aluno' na lista 'self.alunos' faça: -> Pecorre a lista
+            if aluno.cpf == cpf:                            # Se o cpf do objeto for igual ao cpf informado, faça:
+                self.alunos.remove(aluno)                   # Remove o objeto 'aluno' da lista 'self.alunos'
+                break                          
+ 
+    def buscar_aluno(self, cpf):                            # Buscamos o aluno pelo seu cpf, já que é único
+        for aluno in self.alunos:                           # Para o objeto 'aluno' que está na lista 'self.alunos'
+            if aluno.cpf == cpf:                            # Se o cpf estiver listado em algum dos objetos 'aluno' for igual ao cpf informado, faça:
+                return aluno                                # Retorne o nome que estiver no objeto 'aluno' que foi identificado
 
     def listar_alunos(self):
-        for aluno in lista_alunos:
-            print(aluno)
+        return self.alunos
+            
+##################################################################################################################################################
 
     def cadastrar_professor(self, nome, especialidade):
-        self.nome_prof = nome
-        self.especialidade_prof = especialidade 
+        professor = Professor(nome, especialidade)
+        self.professores.append(professor)
+
+
+    def buscar_professor(self, nome):
+        for professor in self.professores:                  # Para o objeto 'professor' que está na lista 'self.professores', faça:
+            if professor.nome == nome:                      # Se o nome que estiver no objeto 
+                return professor 
+
+    def listar_professores(self):                           # Para o objeto 'professor' na lista 'self.professores', faça: 
+        return self.professores                             # Retorna a lista 'self.professores''
 
         
