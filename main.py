@@ -8,27 +8,55 @@ academia.cadatsrar_professor('Daniel', 'Musculação')
 
 while True:
 
-    print('=' * 20, 'MENU', '=' * 20)
+    print('=' * 40)
+    print('' * 20, 'MENU', ' * 20')
+    print('=' * 40)
     print()
-    opcao = print('Selecione a Opção que você deseja em nossa academia: ')
+    opcao_inicial = input('Digite a seleção desejada')
     print()
-    print('1 - Listar alunos')
-    print('2 - Se Matricular em nossa unidade')
-    print('3 - Se desmatricular de nossa unidade')
-    print('4 - Buscar sua matrícula')
-    print('5 - Conhecer nossos profissionais')
-    print('6 - Mudar a especialidade de um profissional')
-    print('7 - Pagar a mensalidade do mês')
-    print('8 - Cancelar o pagamento do mês')
+    print('1 - Coordenador ')
+    print('2 - Aluno')
+    print('0 - Sair')
 
-    if len(opcao) <= 1:
-        print('Digite apenas um caractere')
+    if opcao_inicial == '1': 
+        print('=' * 20, 'MENU ADMIN', '=' * 20)
+        print()
+        opcao = print('Selecione a Opção que você deseja em nossa academia: ')
+        print()
+        print('1 - Listar alunos')
+        print('2 - Se Matricular em nossa unidade')
+        print('3 - Se desmatricular de nossa unidade')
+        print('4 - Buscar matrícula')
+        print('5 - Conhecer nossos profissionais')
+        print('5 - Mudar a especialidade de um profissional')
+
+
+    elif opcao_inicial == '2':
+         lista_alunos_inicial = academia.listar_alunos()
+         cpf = input('Informe seu CPF: ')
+
+         if lista_alunos_inicial.cpf == cpf:
+              print('=' * 40)
+              print('=' * 20, 'MENU ALUNO', '=' * 20)
+              print('=' * 40)
+              print()
+              print()
+              print('7 - Buscar sua matrícula')
+              print('8 - Conhecer nossos profissionais')
+              print('9 - Pagar mensalidade do mês')
+              print('10 - Cancelar o pagamento da mensalidade do mês')
+
+
+         
+
+    if len(opcao) <= 2:
+        print('Digite no máximo 2 caracteres')
         break
     else:
 
 
 #################################################################
-# Alunos:
+# Coordenador
 
         if opcao == '1':
             lista_alunos = academia.listar_alunos()                       # Cria a  variavel 'lista_alunos' sendo igual ao chamamento da função listar_alunos
@@ -53,37 +81,42 @@ while True:
             print('Aluno cadastrado com sucesso')                          
 
         if opcao == '3':
-            academia.remover_aluno(cpf)                                   # Revisar
+            academia.remover_aluno(cpf)                                   
             print('Aluno Removido')
 
         if opcao == '4':
-                academia.buscar_aluno(cpf)
-                print(f'O {aluno.nome} é listado em nossa academia')
+            academia.buscar_aluno(cpf)
+            print(f'O {aluno.nome} é listado em nossa academia')
+
+        if opcao == '5':
+            nova_especialidade = input('Digite a nova especialidade do professor: ')
+            professor.alterar_especialidade(nova_especialidade)
+            print('Especialidade alterada com sucesso!')   
+
+        if opcao == '6':
+            nova_especialidade = input('Digite a nova especialidade do professor: ')
+            professor.alterar_especialidade(nova_especialidade)
+            print('Especialidade alterada com sucesso!')                                        
+                                            
+
+        
 
     ####################################################################
     # Professores:
 
-        if opcao == '5':
+        elif opcao == '7':       # Buscar sua matrícula
+
+        elif opcao == '8':
             lista_professores = academia.listar_professores()             # Criamos a variável 'lista_professores' e armazenamos o a função listar_professores()
 
             for professor in lista_professores:                           # Para cada professor na variável que armazena a função listar_professores(
                 print(professor)  
-
-        if opcao == '6':
-                nova_especialidade = input('Digite a nova especialidade do professor: ')
-                professor.alterar_especialidade(nova_especialidade)
-                print('Especialidade alterada com sucesso!')                                        # Retorna todos os professores, já que é um laço de repetição.
-    #####################################################################
-    # Mensalidade:
-
-        if opcao == '7':
+                                    
+        elif opcao == '9':
             mensalidade.realizar_pagamento()
             print('O Pagamento foi realizado.')
-
-
-        if opcao == '8':
+        
+         elif opcao == '10':
             mensalidade.cancelar_pagamento()
             print('O Pagamento foi cancelado.')
-
-    
-        
+            
