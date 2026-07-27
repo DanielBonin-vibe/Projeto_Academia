@@ -24,10 +24,10 @@ while True:
         opcao = print('Selecione a Opção que você deseja em nossa academia: ')
         print()
         print('1 - Listar alunos')
-        print('2 - Se Matricular em nossa unidade')
-        print('3 - Se desmatricular de nossa unidade')
+        print('2 - Matricular aluno em nossa unidade')
+        print('3 - Desmatricular aluno de nossa unidade')
         print('4 - Buscar matrícula')
-        print('5 - Conhecer nossos profissionais')
+        print('5 - Listar nossos profissionais')
         print('5 - Mudar a especialidade de um profissional')
 
 
@@ -105,6 +105,8 @@ while True:
     # Professores:
 
         elif opcao == '7':       # Buscar sua matrícula
+            academia.buscar_aluno(cpf)
+            print(f'O {aluno.nome} está vinculado a esse  cpf')
 
         elif opcao == '8':
             lista_professores = academia.listar_professores()             # Criamos a variável 'lista_professores' e armazenamos o a função listar_professores()
@@ -116,7 +118,10 @@ while True:
             mensalidade.realizar_pagamento()
             print('O Pagamento foi realizado.')
         
-         elif opcao == '10':
+        elif opcao == '10':
             mensalidade.cancelar_pagamento()
             print('O Pagamento foi cancelado.')
+
+        else:
+            break
             
