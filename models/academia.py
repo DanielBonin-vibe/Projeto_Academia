@@ -1,5 +1,6 @@
 from .aluno import Aluno
 from .professor import Professor
+from .mensalidade import Mensalidade
 
 class Academia:             # Classe
     def __init__(self):
@@ -23,6 +24,20 @@ class Academia:             # Classe
 
     def listar_alunos(self):
         return self.alunos
+
+    def verificar_status_financeiro(self, cpf):
+        for aluno in self.alunos:                          # Para cada aluno na lista de alunos
+            if aluno.cpf == cpf:    
+                                       # Se o cpf informado for igual ao cpf de algum aluno na lista de alunos, faça:
+                if aluno.mensalidade.pago == True:
+                    return('Tudo certo!')
+                else: 
+                    return 'Provável Atraso'
+                
+            else:
+                return 'Aluno não encontrado'
+
+                
             
 ##################################################################################################################################################
 

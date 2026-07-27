@@ -88,15 +88,21 @@ while True:
             academia.buscar_aluno(cpf)
             print(f'O {aluno.nome} é listado em nossa academia')
 
-        if opcao == '5':
-            nova_especialidade = input('Digite a nova especialidade do professor: ')
-            professor.alterar_especialidade(nova_especialidade)
-            print('Especialidade alterada com sucesso!')   
+        elif opcao == '5':
+                    lista_professores = academia.listar_professores()             # Criamos a variável 'lista_professores' e armazenamos o a função listar_professores() do objeto academia
+        
+                    for professor in lista_professores:                           # Para cada professor na variável que armazena a função 'listar_professores()'
+                        print(professor)  
 
         if opcao == '6':
-            nova_especialidade = input('Digite a nova especialidade do professor: ')
-            professor.alterar_especialidade(nova_especialidade)
-            print('Especialidade alterada com sucesso!')                                        
+            nova_especialidade = input('Digite a nova especialidade do professor: ')         # Criamos um variável e damos um valor a ela
+            professor.alterar_especialidade(nova_especialidade)                              # Chama o método alterar_especialidade() do objeto professor, passando a nova especialidade para atualizar a área de atuação do professor.
+            print('Especialidade alterada com sucesso!')       
+
+        elif opcao == '7':
+            cpf = input('Informe o cpf da conta em questão: ')                     # Criamos a varrávelq ue vai receber o cpf da conta a ser verificada
+            status = academia.verificar_status_financeiro(cpf)                     # Criamos status para guardar o valor da função 'verificar_status...' do objeto academia
+            print(status)                                                          # Retornamos um texto informando a situação 
                                             
 
         
@@ -104,23 +110,28 @@ while True:
     ####################################################################
     # Professores:
 
-        elif opcao == '7':       # Buscar sua matrícula
+        elif opcao == '8':       # Buscar sua matrícula
             academia.buscar_aluno(cpf)
             print(f'O {aluno.nome} está vinculado a esse  cpf')
 
-        elif opcao == '8':
+        elif opcao == '9':
             lista_professores = academia.listar_professores()             # Criamos a variável 'lista_professores' e armazenamos o a função listar_professores()
 
             for professor in lista_professores:                           # Para cada professor na variável que armazena a função listar_professores(
                 print(professor)  
                                     
-        elif opcao == '9':
-            mensalidade.realizar_pagamento()
+        elif opcao == '10':
+            mensalidade.realizar_pagamento()                              # Do objeto 'mensalidade.' chamamos a função 'realizar_pagamento()'
             print('O Pagamento foi realizado.')
         
-        elif opcao == '10':
-            mensalidade.cancelar_pagamento()
+        elif opcao == '11':
+            mensalidade.cancelar_pagamento()                              # Do objeto 'mensalidade.' chamamos a função 'cancelar_pagamento()'
             print('O Pagamento foi cancelado.')
+
+        elif opcao == '11':
+            cpf = input('Informe o cpf da conta em questão: ')
+            status = academia.verificar_status_financeiro(cpf) 
+            print(status)
 
         else:
             break
