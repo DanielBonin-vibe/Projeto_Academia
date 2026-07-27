@@ -4,7 +4,11 @@ from .mensalidade import Mensalidade
 from .plano import Plano
 
 
-class Academia:             # Classe
+class Academia:                                 # Classe
+
+    total_alunos = 0                            # Valor inicial do contador
+    total_professores = 0
+
     def __init__(self):
         self.alunos = []
         self.professores = []
@@ -28,7 +32,12 @@ class Academia:             # Classe
             return
 
         aluno = Aluno(nome, idade, cpf, plano, mensalidade)
+        Aluno.total_alunos += 1
         self.alunos.append(aluno)
+
+    @classmethod                                            # MÉTODO DE CLASSE  ; representa a classe inteira
+    def total_alunos(cls):
+        print(cls.total_alunos)                             
 
     def remover_aluno(self, cpf):
         for aluno in self.alunos:                           # Para o objeto 'aluno' na lista 'self.alunos' faça: -> Pecorre a lista
@@ -63,6 +72,7 @@ class Academia:             # Classe
 
     def cadastrar_professor(self, nome, especialidade):
         professor = Professor(nome, especialidade)
+        Professor.total_professores += 1
         self.professores.append(professor)
 
 
@@ -72,6 +82,13 @@ class Academia:             # Classe
                 return professor 
 
     def listar_professores(self):                           # Para o objeto 'professor' na lista 'self.professores', faça: 
-        return self.professores                             # Retorna a lista 'self.professores''
+        return self.professores                             # Retorna a lista 'self.professores'
+
+    @classmethod                             # Método de classe  
+    def total_professores(cls):              # 'cls' é convenção, == 'classe'
+        print(cls.total.professores)
+    
+
+
 
         
