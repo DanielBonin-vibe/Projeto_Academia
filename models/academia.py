@@ -1,17 +1,34 @@
 from .aluno import Aluno
 from .professor import Professor
 from .mensalidade import Mensalidade
+from .plano import Plano
+
 
 class Academia:             # Classe
     def __init__(self):
         self.alunos = []
         self.professores = []
 
-    def cadastrar_aluno(self, nome, idade, cpf, plano, mensalidade):
-        aluno = Aluno(nome, idade, cpf, plano)              # Criamos um objeto chamado 'aluno' que recebe uma classe que irá receber os parâmetros
-        self.alunos.append(aluno)                           # Damos um append para adicionar o aluno a lista self.alunos
+    def cadastrar_aluno(self, nome, idade, cpf, opcao_plano):     # opcao_plano é utiliziado para puxar as opções no main.py
 
-       
+        if opcao_plano == '1':   
+            plano = Plano('Básico')                               # Cria o objeto 'Plano' que é aguardado na variável 'plano', esse objeto 'Valor' guarda o valor de acordo com a opcao_plano
+            mensalidade = Mensalidade(100)                        # Cria o objeto 'Mensalidade' que guarda o valor '100', que tudo é guardado na variável 'mensalidade'
+
+        elif opcao_plano == '2':
+            plano = Plano('intermediário')                        # Cria o objeto 'Plano' que é aguardado na variável 'plano', esse objeto 'Valor' guarda o valor de acordo com a opcao_plano
+            mensalidade = Mensalidade(200)
+
+        elif opcao_plano == '3':        
+            plano = Plano('Premium')                              # Cria o objeto 'Plano' que é aguardado na variável 'plano', esse objeto 'Valor' guarda o valor de acordo com a opcao_plano
+            mensalidade = Mensalidade(300)
+
+        else: 
+            print('Plano Inválido')
+            return
+
+        aluno = Aluno(nome, idade, cpf, plano, mensalidade)
+        self.alunos.append(aluno)
 
     def remover_aluno(self, cpf):
         for aluno in self.alunos:                           # Para o objeto 'aluno' na lista 'self.alunos' faça: -> Pecorre a lista
@@ -30,10 +47,10 @@ class Academia:             # Classe
     def verificar_status_financeiro(self, cpf):
         for aluno in self.alunos:                          # Para cada aluno na lista de alunos
             if aluno.cpf == cpf:                           # Se o cpf informado for igual ao cpf de algum aluno na lista de alunos, faça:
-                
-                if aluno.mensalidade.pago == True:
 
+                if aluno.mensalidade.pago:
                     return('Tudo certo!')
+                
                 else: 
                     return 'Provável Atraso'
                 

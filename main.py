@@ -30,12 +30,13 @@ while True:
         print('5 - Listar nossos profissionais')
         print('5 - Mudar a especialidade de um profissional')
 
+#########################################################################################################
 
     elif opcao_inicial == '1':
          lista_alunos_inicial = academia.listar_alunos()
          cpf = input('Informe seu CPF: ')
-         
-    elif opcao_inicial == '2'
+
+    elif opcao_inicial == '2':
             print()
             print('=' * 20, 'SELEÇÃO PLANO', '=' * 20)
             print()
@@ -44,18 +45,22 @@ while True:
             print('3 - Plano Premium')
             print('4 - Sair')
             print('=' * 40)
-            opcao = input('Digite o plano desejado: ')
+            opcao_plano = input('Digite o plano desejado: ')
 
-         if lista_alunos_inicial.cpf == cpf:
-              print('=' * 40)
-              print('=' * 20, 'MENU ALUNO', '=' * 20)
-              print('=' * 40)
-              print()
-              print()
-              print('7 - Buscar sua matrícula')
-              print('8 - Conhecer nossos profissionais')
-              print('9 - Pagar mensalidade do mês')
-              print('10 - Cancelar o pagamento da mensalidade do mês')
+            
+            
+############################################################################################################
+
+    elif lista_alunos_inicial.cpf == cpf:
+        print('=' * 40)
+        print('=' * 20, 'MENU ALUNO', '=' * 20)
+        print('=' * 40)
+        print()
+        print()
+        print('7 - Buscar sua matrícula')
+        print('8 - Conhecer nossos profissionais')
+        print('9 - Pagar mensalidade do mês')
+        print('10 - Cancelar o pagamento da mensalidade do mês')
 
 
          
