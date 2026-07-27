@@ -31,9 +31,20 @@ while True:
         print('5 - Mudar a especialidade de um profissional')
 
 
-    elif opcao_inicial == '2':
+    elif opcao_inicial == '1':
          lista_alunos_inicial = academia.listar_alunos()
          cpf = input('Informe seu CPF: ')
+         
+    elif opcao_inicial == '2'
+            print()
+            print('=' * 20, 'SELEÇÃO PLANO', '=' * 20)
+            print()
+            print('1 - Plano Básico')
+            print('2 - Plano Intermediário')
+            print('3 - Plano Premium')
+            print('4 - Sair')
+            print('=' * 40)
+            opcao = input('Digite o plano desejado: ')
 
          if lista_alunos_inicial.cpf == cpf:
               print('=' * 40)

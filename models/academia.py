@@ -7,9 +7,11 @@ class Academia:             # Classe
         self.alunos = []
         self.professores = []
 
-    def cadastrar_aluno(self, nome, idade, cpf, plano):
+    def cadastrar_aluno(self, nome, idade, cpf, plano, mensalidade):
         aluno = Aluno(nome, idade, cpf, plano)              # Criamos um objeto chamado 'aluno' que recebe uma classe que irá receber os parâmetros
         self.alunos.append(aluno)                           # Damos um append para adicionar o aluno a lista self.alunos
+
+       
 
     def remover_aluno(self, cpf):
         for aluno in self.alunos:                           # Para o objeto 'aluno' na lista 'self.alunos' faça: -> Pecorre a lista
@@ -27,9 +29,10 @@ class Academia:             # Classe
 
     def verificar_status_financeiro(self, cpf):
         for aluno in self.alunos:                          # Para cada aluno na lista de alunos
-            if aluno.cpf == cpf:    
-                                       # Se o cpf informado for igual ao cpf de algum aluno na lista de alunos, faça:
+            if aluno.cpf == cpf:                           # Se o cpf informado for igual ao cpf de algum aluno na lista de alunos, faça:
+                
                 if aluno.mensalidade.pago == True:
+
                     return('Tudo certo!')
                 else: 
                     return 'Provável Atraso'
