@@ -58,6 +58,11 @@ class Academia:                                 # Classe
         for aluno in self.alunos:
             print(aluno)
 
+    def buscar_aluno(self, cpf):
+        for aluno in self.alunos:
+            if aluno.cpf == cpf:
+                return aluno
+
     def listar_professoress(self):
         for professor in self.professores:
             print(professor)
@@ -75,28 +80,6 @@ class Academia:                                 # Classe
             else:
                 return 'Aluno não encontrado'
 
-                
-            
-##################################################################################################################################################
-
-    def cadastrar_professor(self, nome, especialidade):
-        professor = Professor(nome, especialidade)
-        Professor.total_professores += 1
-        self.professores.append(professor)
-
-
-    def buscar_professor(self, nome):
-        for professor in self.professores:                  # Para o objeto 'professor' que está na lista 'self.professores', faça:
-            if professor.nome == nome:                      # Se o nome que estiver no objeto 
-                return professor 
-
-    def listar_professores(self):                           # Para o objeto 'professor' na lista 'self.professores', faça: 
-        return self.professores                             # Retorna a lista 'self.professores'
-
-    @classmethod                             # Método de classe  
-    def total_professores(cls):              # 'cls' é convenção, == 'classe'
-        print(cls.total.professores)
-    
 ###########################################################################################
 
     def menu_inicial(self):
@@ -129,8 +112,8 @@ class Academia:                                 # Classe
         print('2 - Conhecer nossos professores')
         print('3 - Pagar mensalidade')
         print('4 - Cancelar pagamento')
-        print('5 - ')
-        print('6 - ')
+        print('5 - Verificar status financeiro')
+
         return input('Selecione a Opção que você deseja em nossa academia: ') 
 
     def selecao_plano(self):
