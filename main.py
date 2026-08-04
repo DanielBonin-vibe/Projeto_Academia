@@ -1,7 +1,7 @@
-from models import Mensalidade, Academia
+from models.academia import Academia
+from models.mensalidade import Mensalidade
 
 academia = Academia()
-mensalidade = Mensalidade()
 
 while True:
     
@@ -57,12 +57,10 @@ while True:
         academia.listar_professores()
                                     
     elif opcao_aluno == '3':
-        mensalidade.realizar_pagamento()                            
-        print('O Pagamento foi realizado.')
+        academia.realizar_pagamento(cpf)                            
         
     elif opcao_aluno == '4':
-        mensalidade.cancelar_pagamento()                              
-        print('O Pagamento foi cancelado.')
+        academia.cancelar_pagamento(cpf)                              
 
     elif opcao_aluno == '5':
         cpf = input('Informe o cpf da conta em questão: ')

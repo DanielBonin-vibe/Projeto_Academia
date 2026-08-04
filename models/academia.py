@@ -2,6 +2,7 @@ from .aluno import Aluno
 from .professor import Professor
 from .mensalidade import Mensalidade
 from .plano import Plano
+from utils import persistencia
 
 
 class Academia:                                 # Classe
@@ -33,6 +34,7 @@ class Academia:                                 # Classe
         aluno = Aluno(nome, idade, cpf, plano, mensalidade)
         Aluno.total_alunos += 1
         self.alunos.append(aluno)
+        persistencia.salavar_aluno(self.alunos)
 
 ######################################################
 
@@ -84,6 +86,22 @@ class Academia:                                 # Classe
                 
             else:
                 return 'Aluno não encontrado'
+
+    def realizar_pagamento(self, cpf):
+        for aluno in self.alunos:
+            if aluno.cpf == cpf:
+                aluno.mensalidade.pago = True
+                return 'Tudo pago'
+            
+        return ('Este CPF não está no nosso banco de dados.')
+
+    def cancelar_pagamento(self, cpf):
+        for aluno in self.alunos:
+            if aluno.cpf == cpf:
+                aluno.mensalidade.pago = False
+                return 'Pagamento pendente'
+            
+        return ('Este CPF não está no nosso banco de dados.')
 
 ###########################################################################################
 
