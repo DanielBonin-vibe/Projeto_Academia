@@ -13,9 +13,7 @@ class Academia:                                 # Classe
         self.alunos = []
         self.professores = []
 
-    def cadastrar_aluno(self, nome, idade, cpf, opcao_plano):     # opcao_plano é utiliziado para puxar as opções no main.py
-
-        self.selecao_plano()
+    def matricular_aluno(self, nome, idade, cpf, opcao_plano):    
 
         if opcao_plano == '1':   
             plano = Plano('Básico')                           # Cria o objeto 'Plano' que é aguardado na variável 'plano', esse objeto 'Valor' guarda o valor de acordo com a opcao_plano
@@ -36,23 +34,33 @@ class Academia:                                 # Classe
         Aluno.total_alunos += 1
         self.alunos.append(aluno)
 
-    @classmethod                                            # MÉTODO DE CLASSE  ; representa a classe inteira
-    def total_alunos(cls):
-        print(cls.total_alunos)                             
+######################################################
 
-    def remover_aluno(self, cpf):
-        for aluno in self.alunos:                           # Para o objeto 'aluno' na lista 'self.alunos' faça: -> Pecorre a lista
-            if aluno.cpf == cpf:                            # Se o cpf do objeto for igual ao cpf informado, faça:
-                self.alunos.remove(aluno)                   # Remove o objeto 'aluno' da lista 'self.alunos'
-                break                          
- 
-    def buscar_aluno(self, cpf):                            # Buscamos o aluno pelo seu cpf, já que é único
-        for aluno in self.alunos:                           # Para o objeto 'aluno' que está na lista 'self.alunos'
-            if aluno.cpf == cpf:                            # Se o cpf estiver listado em algum dos objetos 'aluno' for igual ao cpf informado, faça:
-                return aluno                                # Retorne o nome que estiver no objeto 'aluno' que foi identificado
+    def desmatricular_aluno(self, cpf):
+        for aluno in self.alunos:
+            if aluno.cpf == cpf:
+                self.alunos.remover(aluno)
+            else:
+                print('Não foi possível encontrar o aluno no nosso banco de dados.')
+        return 'Sucesso'                          
 
+
+    def buscar_aluno(self, cpf):                            
+        for aluno in self.alunos:                           
+            if aluno.cpf == cpf:                            
+                return aluno  
+            else:
+                print('Não foi possível encontrar o aluno no nosso banco de dados.')
+                break
+
+                                
     def listar_alunos(self):
-        return self.alunos
+        for aluno in self.alunos:
+            print(aluno)
+
+    def listar_professoress(self):
+        for professor in self.professores:
+            print(professor)
 
     def verificar_status_financeiro(self, cpf):
         for aluno in self.alunos:                          # Para cada aluno na lista de alunos
@@ -111,19 +119,18 @@ class Academia:                                 # Classe
         print('3 - Desmatricular aluno de nossa unidade')
         print('4 - Buscar matrícula')
         print('5 - Listar nossos profissionais')
-        print('5 - Mudar a especialidade de um profissional')
         return print('Selecione a Opção que você deseja em nossa academia: ')
 
     def menu_aluno(self):
         print()
         print('=' * 20, 'MENU ALUNO', '=' * 20)
         print()
-        print('1 - ')
-        print('2 - ')
-        print('3 - ')
-        print('4 - ')
+        print('1 - Buscar sua matrícula')
+        print('2 - Conhecer nossos professores')
+        print('3 - Pagar mensalidade')
+        print('4 - Cancelar pagamento')
         print('5 - ')
-        print('5 - ')
+        print('6 - ')
         return input('Selecione a Opção que você deseja em nossa academia: ') 
 
     def selecao_plano(self):

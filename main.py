@@ -13,105 +13,38 @@ while True:
     if opcao_inicial == '1':
          opcao_coordenador = academia.menu_coordenador()
 
-    if opcao_inicial == '2':
-         opcao_aluno = academia.menu.aluno()
+    elif opcao_inicial == '2':
+         opcao_aluno = academia.menu_aluno()
+
+    else:
+         break
     
 
 #########################################################################################################
+# Coordenador
+    if opcao_coordenador == '1':
+        academia.listar_alunos()
 
-    elif opcao_inicial == '1':
-         lista_alunos_inicial = academia.listar_alunos()
-         cpf = input('Informe seu CPF: ')
-
-    elif opcao_inicial == '2':
-            print()
-            print('=' * 20, 'SELEÇÃO PLANO', '=' * 20)
-            print()
-            print('1 - Plano Básico')
-            print('2 - Plano Intermediário')
-            print('3 - Plano Premium')
-            print('4 - Sair')
-            print('=' * 40)
-            opcao_plano = input('Digite o plano desejado: ')
-
+    elif opcao_coordenador == '2':
+        nome = input('Informe o nome compelto do novo aluno: ')
+        idade = input('Informe a idade: ')
+        cpf = input('Informe o CPF (Sem pontuação): ')
+        opcao_plano = academia.selecao_plano()
+        academia.matricular_aluno(nome, idade, cpf, opcao_plano)  
             
-            
-############################################################################################################
+    elif opcao_coordenador == '3':
+        cpf = input('Informe o CPF (Sem pontuação): ')
+        academia.desmatricular_aluno(cpf)
 
-    elif lista_alunos_inicial.cpf == cpf:
-        print('=' * 40)
-        print('=' * 20, 'MENU ALUNO', '=' * 20)
-        print('=' * 40)
-        print()
-        print()
-        print('7 - Buscar sua matrícula')
-        print('8 - Conhecer nossos profissionais')
-        print('9 - Pagar mensalidade do mês')
-        print('10 - Cancelar o pagamento da mensalidade do mês')
+    elif opcao_coordenador == '4':
+        cpf = input('Informe o CPF (Sem pontuação): ')
+        academia.buscar_aluno(cpf)
 
-
-         
-
-    if len(opcao) <= 2:
-        print('Digite no máximo 2 caracteres')
-        break
-    else:
-
+    elif opcao_coordenador == '5':
+        academia.listar_professores()
 
 #################################################################
-# Coordenador
-
-        if opcao == '1':
-            lista_alunos = academia.listar_alunos()                       # Cria a  variavel 'lista_alunos' sendo igual ao chamamento da função listar_alunos
-
-            if len(lista_alunos) == 0:                                    # Se o tamanho do que for escrito for 0, já retorne que n existe
-                print('Nenhum aluno encontrado') 
-
-            else:                                                         # Se for mairo que 0:
-                for aluno in lista_alunos:                                # Para aluno na variavel 'lista_alunos'
-                    print(aluno)                                          # Retorna todos os alunos, já que é um laço de reptição
-
-
-        if opcao == '2':
-                      
-            nome = input('Digite o nome completo do aluno a ser cadastrado: ')
-            idade = input('Digite a idade do aluno: ')
-            cpf = input('Digite o CPF do novo aluno: ')
-            plano = input('Informe o plano do novo aluno: ')
-
-            academia.cadastrar_aluno(nome, idade, cpf, plano)  
-
-            print('Aluno cadastrado com sucesso')                          
-
-        if opcao == '3':
-            academia.remover_aluno(cpf)                                   
-            print('Aluno Removido')
-
-        if opcao == '4':
-            academia.buscar_aluno(cpf)
-            print(f'O {aluno.nome} é listado em nossa academia')
-
-        elif opcao == '5':
-                    lista_professores = academia.listar_professores()             # Criamos a variável 'lista_professores' e armazenamos o a função listar_professores() do objeto academia
-        
-                    for professor in lista_professores:                           # Para cada professor na variável que armazena a função 'listar_professores()'
-                        print(professor)  
-
-        if opcao == '6':
-            nova_especialidade = input('Digite a nova especialidade do professor: ')         # Criamos um variável e damos um valor a ela
-            professor.alterar_especialidade(nova_especialidade)                              # Chama o método alterar_especialidade() do objeto professor, passando a nova especialidade para atualizar a área de atuação do professor.
-            print('Especialidade alterada com sucesso!')       
-
-        elif opcao == '7':
-            cpf = input('Informe o cpf da conta em questão: ')                     # Criamos a varrávelq ue vai receber o cpf da conta a ser verificada
-            status = academia.verificar_status_financeiro(cpf)                     # Criamos status para guardar o valor da função 'verificar_status...' do objeto academia
-            print(status)                                                          # Retornamos um texto informando a situação 
-                                            
-
-        
-
-    ####################################################################
-    # Professores:
+# Aluno
 
         elif opcao == '8':       # Buscar sua matrícula
             academia.buscar_aluno(cpf)
