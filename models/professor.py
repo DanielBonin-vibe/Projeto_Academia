@@ -1,14 +1,19 @@
-import Aluno
 
 class Professor:
-    def __init__(self, nome, especialidade):
+    def __init__(self, nome, cpf, especialidade):
         self.nome = nome
+        self.cpf = cpf
         self.especialidade = especialidade
 
     def exibir_dados(self):
         print(f'Nome do professor: {self.nome}')
+        print(f'CPF: {self.cpf}')
         print(f'Especialidade do professor: {self.especialidade}')
 
-    def alterar_especialidade(self, especialidade):      # Especialidade recebe um valor que estará no main.py
-        self.especialidade = especialidade               # self.especialidade é o atributo que pertence ao objeto
+    def to_dict(self):
+        return {
+        'nome': self.nome, 
+        'cpf': self.cpf,    
+        'especialidade': self.especialidade
+        }
         

@@ -37,6 +37,13 @@ while True:
         academia.buscar_aluno(cpf)
 
     elif opcao_coordenador == '5':
+        nome = input('Informe o nome completo do profissional a ser adicionado: ')
+        cpf = input('Informe o CPF do profissional: ')
+        especialidade = input('Informe a especialidade que o mesmo atuará: ')
+        academia.cadastrar_professor(nome, cpf, especialidade)
+        
+
+    elif opcao_coordenador == '6':
         academia.listar_professores()
 
 #################################################################

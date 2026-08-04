@@ -34,6 +34,16 @@ class Aluno:
         else:
             print('Não é possível ativar o aluno. Mensalidade pendente.')
 
+    def to_dict(self):
+        return {
+        'nome': self.nome, 
+        'idade': self.idade,
+        'cpf': self.cpf,
+        'plano': self.plano.to_dict(),
+        'mensalidade': self.mensalidade.to_dict(),
+        'status_do_contrato': self.status_do_contrato
+        }
+
 
 
         

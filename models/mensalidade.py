@@ -12,3 +12,8 @@ class Mensalidade:
         return "Pagamento pendente"
 
 
+    def to_dict(self):
+        return {
+        'valor': self.valor,
+        'pago': self.pago
+        }

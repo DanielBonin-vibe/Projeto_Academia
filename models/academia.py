@@ -67,6 +67,11 @@ class Academia:                                 # Classe
         for professor in self.professores:
             print(professor)
 
+    def cadastrar_professor(self, nome, cpf, especialidade):
+        professor = Professor(nome, cpf, especialidade)
+        self.professores.append(professor)
+        return 'Professor cadastrado'
+
     def verificar_status_financeiro(self, cpf):
         for aluno in self.alunos:                          # Para cada aluno na lista de alunos
             if aluno.cpf == cpf:                           # Se o cpf informado for igual ao cpf de algum aluno na lista de alunos, faça:
@@ -101,7 +106,8 @@ class Academia:                                 # Classe
         print('2 - Matricular aluno em nossa unidade')
         print('3 - Desmatricular aluno de nossa unidade')
         print('4 - Buscar matrícula')
-        print('5 - Listar nossos profissionais')
+        print('5 - Cadastrar professor na unidade')
+        print('6 - Listar nossos profissionais')
         return print('Selecione a Opção que você deseja em nossa academia: ')
 
     def menu_aluno(self):
