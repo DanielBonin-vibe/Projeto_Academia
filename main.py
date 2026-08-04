@@ -7,28 +7,15 @@ academia.cadastrar_aluno('Bonin', 20, 70939995492, 'Plus')
 academia.cadatsrar_professor('Daniel', 'Musculação')
 
 while True:
+    
+    opcao_inicial = academia.menu_inicial()
 
-    print('=' * 40)
-    print('' * 20, 'MENU', ' * 20')
-    print('=' * 40)
-    print()
-    opcao_inicial = input('Digite a seleção desejada')
-    print()
-    print('1 - Coordenador ')
-    print('2 - Aluno')
-    print('0 - Sair')
+    if opcao_inicial == '1':
+         opcao_coordenador = academia.menu_coordenador()
 
-    if opcao_inicial == '1': 
-        print('=' * 20, 'MENU ADMIN', '=' * 20)
-        print()
-        opcao = print('Selecione a Opção que você deseja em nossa academia: ')
-        print()
-        print('1 - Listar alunos')
-        print('2 - Matricular aluno em nossa unidade')
-        print('3 - Desmatricular aluno de nossa unidade')
-        print('4 - Buscar matrícula')
-        print('5 - Listar nossos profissionais')
-        print('5 - Mudar a especialidade de um profissional')
+    if opcao_inicial == '2':
+         opcao_aluno = academia.menu.aluno()
+    
 
 #########################################################################################################
 

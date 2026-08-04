@@ -15,16 +15,17 @@ class Academia:                                 # Classe
 
     def cadastrar_aluno(self, nome, idade, cpf, opcao_plano):     # opcao_plano é utiliziado para puxar as opções no main.py
 
+        self.selecao_plano()
+
         if opcao_plano == '1':   
-            plano = Plano('Básico')                               # Cria o objeto 'Plano' que é aguardado na variável 'plano', esse objeto 'Valor' guarda o valor de acordo com a opcao_plano
-            mensalidade = Mensalidade(100)                        # Cria o objeto 'Mensalidade' que guarda o valor '100', que tudo é guardado na variável 'mensalidade'
+            plano = Plano('Básico')                           # Cria o objeto 'Plano' que é aguardado na variável 'plano', esse objeto 'Valor' guarda o valor de acordo com a opcao_plano
+            mensalidade = Mensalidade(100)                    # Cria o objeto 'Mensalidade' que guarda o valor '100', que tudo é guardado na variável 'mensalidade'
 
         elif opcao_plano == '2':
-            plano = Plano('intermediário')                        # Cria o objeto 'Plano' que é aguardado na variável 'plano', esse objeto 'Valor' guarda o valor de acordo com a opcao_plano
-            mensalidade = Mensalidade(200)
+            plano = Plano('intermediário')                    
 
         elif opcao_plano == '3':        
-            plano = Plano('Premium')                              # Cria o objeto 'Plano' que é aguardado na variável 'plano', esse objeto 'Valor' guarda o valor de acordo com a opcao_plano
+            plano = Plano('Premium')                           
             mensalidade = Mensalidade(300)
 
         else: 
@@ -88,7 +89,54 @@ class Academia:                                 # Classe
     def total_professores(cls):              # 'cls' é convenção, == 'classe'
         print(cls.total.professores)
     
+###########################################################################################
 
+    def menu_inicial(self):
+        print('=' * 40)
+        print('' * 20, 'MENU', ' * 20')
+        print('=' * 40)
+        print()
+        print()
+        print('1 - Coordenador ')
+        print('2 - Aluno')
+        print('0 - Sair')
+        return input('Digite a seleção desejada: ')
 
+    def menu_coordenador(self):
+        print()
+        print('=' * 20, 'MENU COORDENADOR', '=' * 20)
+        print()
+        print('1 - Listar alunos')
+        print('2 - Matricular aluno em nossa unidade')
+        print('3 - Desmatricular aluno de nossa unidade')
+        print('4 - Buscar matrícula')
+        print('5 - Listar nossos profissionais')
+        print('5 - Mudar a especialidade de um profissional')
+        return print('Selecione a Opção que você deseja em nossa academia: ')
 
+    def menu_aluno(self):
+        print()
+        print('=' * 20, 'MENU ALUNO', '=' * 20)
+        print()
+        print('1 - ')
+        print('2 - ')
+        print('3 - ')
+        print('4 - ')
+        print('5 - ')
+        print('5 - ')
+        return input('Selecione a Opção que você deseja em nossa academia: ') 
+
+    def selecao_plano(self):
+        print()
+        print('=' * 20, 'SELEÇÃO PLANO', '=' * 20)
+        print()
+        print('1 - Plano Básico')
+        print('2 - Plano Intermediário')
+        print('3 - Plano Premium')
+        print('4 - Sair')
+        print('=' * 40)
+        print()
+        return input('Digite o plano desejado: ')
+
+        
         
