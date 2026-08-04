@@ -8,3 +8,9 @@ class Mensalidade:
         'valor': self.valor,
         'pago': self.pago
         }
+
+    def from_dict(cls, dados):
+        return cls (
+        dados['valor'],
+        dados['pago']
+        )

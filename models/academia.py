@@ -5,14 +5,12 @@ from .plano import Plano
 from utils import persistencia
 
 
-class Academia:                                 # Classe
+class Academia:                  
 
-    total_alunos = 0                            # Valor inicial do contador
-    total_professores = 0
 
     def __init__(self):
-        self.alunos = []
-        self.professores = []
+        self.alunos = persistencia.carregar_aluno()
+        self.professores = persistencia.carregar_professor()
 
     def matricular_aluno(self, nome, idade, cpf, opcao_plano):    
 
@@ -34,7 +32,7 @@ class Academia:                                 # Classe
         aluno = Aluno(nome, idade, cpf, plano, mensalidade)
         Aluno.total_alunos += 1
         self.alunos.append(aluno)
-        persistencia.salavar_aluno(self.alunos)
+        persistencia.salvar_aluno(self.alunos)
 
 ######################################################
 
@@ -72,6 +70,7 @@ class Academia:                                 # Classe
     def cadastrar_professor(self, nome, cpf, especialidade):
         professor = Professor(nome, cpf, especialidade)
         self.professores.append(professor)
+        persistencia.salvar_professor(self.professores)
         return 'Professor cadastrado'
 
     def verificar_status_financeiro(self, cpf):

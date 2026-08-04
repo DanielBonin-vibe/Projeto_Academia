@@ -1,4 +1,5 @@
 from .mensalidade import Mensalidade
+from .plano import Plano
 
 class Aluno:
     def __init__(self, nome, idade, cpf, plano, mensalidade):
@@ -21,19 +22,6 @@ class Aluno:
         else: 
             print('Status: Desativado')
 
-    def desativar(self):
-        self.status_do_contrato = False
-        print('Aluno desativado!')
-
-    def ativar(self):
-
-        if self.mensalidade.pago:                       # Verifica se a mensalidade do aluno está paga.
-            self.status_de_contrato = True              # Ativa o contrato do aluno caso a mensalidade esteja em dia.
-            print('Aluno Ativo')
-
-        else:
-            print('Não é possível ativar o aluno. Mensalidade pendente.')
-
     def to_dict(self):
         return {
         'nome': self.nome, 
@@ -44,6 +32,19 @@ class Aluno:
         'status_do_contrato': self.status_do_contrato
         }
 
+    @classmethod
+    def from_dict(cls, dados):   # Mesma coisa de fazer Aluno.from_dict(Aluno)
+        plano = Plano.from_dict(dados['plano'])
+        mensalidade = Mensalidade.from_dict(dados['mensalidade'])
 
+        aluno = cls(    # Criamos um novo objeto chamado Aluno
+        dados['nome'],
+        dados['idade'],
+        dados['cpf'],
+        plano,
+        mensalidade
+        )
+
+        return aluno
 
         

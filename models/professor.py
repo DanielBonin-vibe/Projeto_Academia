@@ -16,4 +16,15 @@ class Professor:
         'cpf': self.cpf,    
         'especialidade': self.especialidade
         }
+
+    @classmethod
+    def from_dict(cls, dados):  # Ensina a montar o objeto novamente 
+
+        professor = cls(      
+        dados['nome'],
+        dados['cpf'],
+        dados['especialidade']
+        )
+
+        return professor
         

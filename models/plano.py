@@ -6,6 +6,12 @@ class Plano:
         return {
             'nome_plano': self.nome_plano
         }
+
+    @classmethod
+    def from_dict(cls, dados):
+        return cls (
+        dados['nome_plano']
+        )
       
 
     
