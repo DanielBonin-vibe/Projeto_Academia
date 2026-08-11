@@ -3,18 +3,29 @@ from Projeto_Academia.utils import banco_de_dados
 class Academia:                  
 
     def __init__(self):
+###########################################
+# Cadastros:
 
-    def matricular_aluno(self, nome, idade, cpf, opcao_plano):    
-        ...
+    def matricular_aluno(self, nome, idade, cpf, id_plano):    
+        banco_de_dados.cadastro_aluno(nome, idade, cpf, id_plano)
+
     def desmatricular_aluno(self, cpf):
         ...  
+
+    def cadastrar_professor(self, nome, idade, cpf, especialidade):
+        banco_de_dados.cadastro_professor(nome, idade, cpf, especialidade)
+
+    def desmatricular_aluno(self, cpf):
+        ...
+
+###################################################
+# Ações:
+
     def listar_alunos(self):
         ...
     def buscar_aluno(self, cpf):
         ...
     def listar_professores(self):
-        ...
-    def cadastrar_professor(self, nome, cpf, especialidade):
         ...
     def verificar_status_financeiro(self, cpf):
         ...
@@ -31,7 +42,7 @@ class Academia:
         print('2 - Acesso Aluno ')
         print('3 - Acesso Coordenador')
         print('0 - Sair')
-        return input('Digite a seleção desejada: ')
+        return int(input('Digite a seleção desejada: '))
 
     def menu_coordenador(self):
         print()
@@ -41,7 +52,7 @@ class Academia:
         print('2 - Buscar matrícula')
         print('3 - Cadastrar professor')
         print('4 - Buscar professor')
-        return print('Selecione a Opção desejada: ')
+        return int(input('Selecione a opção desejada: '))
 
     def menu_aluno(self):
         print()
@@ -51,7 +62,7 @@ class Academia:
         print('2 - Pagar mensalidade')
         print('3 - Verificar status financeiro')
         print('4 - Desmatricular-se da nossa academia')
-        return input('Selecione a opção desejada: ')
+        return int(input('Selecione a opção desejada: '))
 
     def selecao_plano(self):
         print()

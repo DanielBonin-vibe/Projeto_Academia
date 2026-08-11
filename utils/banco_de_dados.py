@@ -42,8 +42,34 @@ CREATE TABLE IF NOT EXISTS plano(
     valor REAL NOT NULL)
 """)
 #####################################################################
+# Cadastros:
 
-def cadastrar_aluno():
+def cadastro_aluno(nome, idade, cpf, id_plano):
+    conexao =  sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    INSERT INTO aluno(nome, idade, cpf, id_plano)
+    VALUES(?, ?, ?, ?)
+    """, (nome, idade, cpf, id_plano))
+
+    conexao.commit
+    conexao.close()
+
+
+def cadastro_professor(nome, idade, cpf, especialidade):
+    conexao =  sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    INSERT INTO professor(nome, idade, cpf, especialidade)
+    VALUES(?, ?, ?, ?)
+    """, (nome, idade, cpf, especialidade))
+
+    conexao.commit()
+    conexao.close()
+
+def descadastrar_aluno():
     conexao =  sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
@@ -51,8 +77,7 @@ def cadastrar_aluno():
 
     """)
 
-
-def cadastrar_professor():
+def descadastrar_professor():
     conexao =  sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
@@ -60,7 +85,7 @@ def cadastrar_professor():
 
     """)
 
-
+#######################################################################
 def planos():
     conexao =  sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
