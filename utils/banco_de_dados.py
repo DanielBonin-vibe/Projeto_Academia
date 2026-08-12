@@ -109,7 +109,7 @@ def descadastrar_professor(cpf_professor):
     conexao.close()
 
 #######################################################################
-# Ações:
+# Listagem
 
 def listagem_alunos():
     conexao =  sqlite3.connect('database/academia.db')
@@ -121,14 +121,34 @@ def listagem_alunos():
     alunos = cursor.fetchall()
 
     for aluno in alunos:
-        print(f"ID: {aluno[0]}")
-        print(f"Nome: {aluno[1]}")
-        print(f"CPF: {aluno[2]}")
-        print(f"Telefone: {aluno[3]}")
-        print(f"Plano: {aluno[4]}")
-        print("-" * 30)   
+        print(f'ID: {aluno[0]}')
+        print(f'Nome: {aluno[1]}')
+        print(f'CPF: {aluno[2]}')
+        print(f'Telefone: {aluno[3]}')
+        print(f'Plano: {aluno[4]}')
+        print('-' * 30)   
         print('Listagem concluída!')
 
+def listagem_professor():
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT * FROM professor
+    """)
+
+    professores = cursor.fetchall()
+
+    for professor in professores:
+        print(f'ID: {professor[0]}')
+        print(f'Nome: {professor[1]}')
+        print(f'Idade: {professor[2]}')
+        print(f'CPF: {professor[3]}')
+        print(f'Especialidade: {professor[4]}')
+        
+#############################################################
+# Pesquisas:
+   
 def pesquisa_aluno_id(id_aluno_informado):
     conexao =  sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()

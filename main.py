@@ -41,19 +41,22 @@ while True:
             academia.buscar_aluno_nome(nome_informado)
 
         elif opcao_coordenador == 4:
+            academia.listar_professores
+
+        elif opcao_coordenador == 5:
             nome = input('Informe o nome completo do professor: ')
             idade = int(input('Informe a idade do professor: '))
             cpf = input('Informe o CPF do professor(Sem pontuação): ')
             especialidade = input('Informe a especialidade do professor: ')
             academia.cadastrar_professor(nome, idade, cpf, especialidade)
 
-        elif opcao_coordenador == 5:
-            ...
-
         elif opcao_coordenador == 6:
             ...
 
         elif opcao_coordenador == 7:
+            ...
+
+        elif opcao_coordenador == 8:
             cpf_professor = input('Informe o CPF do professor a ser removido: ')
             academia.desmatricular_professor(cpf_professor)
         else:

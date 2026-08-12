@@ -35,7 +35,8 @@ class Academia:
         banco_de_dados.pesquisa_aluno_nome(nome_informado)
 
     def listar_professores(self):
-        ...
+        banco_de_dados.listagem_professor()
+        
     def verificar_status_financeiro(self, cpf):
         ...
     def realizar_pagamento(self, cpf):
@@ -60,10 +61,11 @@ class Academia:
         print('1 - Listar alunos')
         print('2 - Buscar aluno pela matrícula')
         print('3 - Buscar aluno pelo nome')
-        print('4 - Cadastrar professor')
-        print('5 - Buscar professor pelo ID')
-        print('6 - Buscar professor pelo nome')
-        print('7 - Descadastrar professor')
+        print('4 - Listar professores')
+        print('5 - Cadastrar professor')
+        print('6 - Buscar professor pelo ID')
+        print('7 - Buscar professor pelo nome')
+        print('8 - Descadastrar professor')
         return int(input('Selecione a opção desejada: '))
 
     def menu_aluno(self):
