@@ -24,7 +24,8 @@ while True:
         elif opcao_aluno == 3:
             ...
         elif opcao_aluno == 4:
-            ...
+            id_aluno = input('Informe o seu ID: ')
+            academia.desmatricular_aluno(id_aluno)
     elif opcao_inicial == 3:
         opcao_coordenador = academia.menu_coordenador()
 
@@ -41,3 +42,8 @@ while True:
             ...
         elif opcao_coordenador == 4:
             ...
+        elif opcao_coordenador == 5:
+            cpf_professor = input('Informe o CPF do professor a ser removido: ')
+            academia.desmatricular_professor(cpf_professor)
+        else:
+            break

@@ -69,21 +69,44 @@ def cadastro_professor(nome, idade, cpf, especialidade):
     conexao.commit()
     conexao.close()
 
-def descadastrar_aluno():
+def descadastrar_aluno(id_aluno):
     conexao =  sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
     cursor.execute("""
+    DELETE FROM mensalidade
+    WHERE id_aluno = ?
+    """, (id_aluno))
 
-    """)
+    cursor.execute("""
+    DELETE FROM aluno
+    WHERE id_aluno = ?
+    """, (id_aluno))
 
-def descadastrar_professor():
+    if cursor.rowcount == 0:                      # Serve para verificar se o id existe mesmo
+        print('Aluno, não encontrado')
+    else:
+        print('Aluno e mensalidade removidos com sucesso.')
+
+    conexao.commit()
+    conexao.close()
+
+def descadastrar_professor(cpf_professor):
     conexao =  sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
     cursor.execute("""
+    DELETE FROM professor
+    WHERE cpf = ?
+    """, (cpf_professor))
 
-    """)
+    if cursor.rowcount == 0:
+        print('Professor não localizado')
+    else:
+        print('Professor removido com sucesso.')
+
+    conexao.commit()
+    conexao.close()
 
 #######################################################################
 def planos():

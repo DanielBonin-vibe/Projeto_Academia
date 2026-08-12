@@ -3,20 +3,24 @@ from Projeto_Academia.utils import banco_de_dados
 class Academia:                  
 
     def __init__(self):
+        ...
 ###########################################
 # Cadastros:
 
     def matricular_aluno(self, nome, idade, cpf, id_plano):    
         banco_de_dados.cadastro_aluno(nome, idade, cpf, id_plano)
+        print('Matrícula concluída com sucesso.')
 
-    def desmatricular_aluno(self, cpf):
-        ...  
+    def desmatricular_aluno(self, id_aluno):
+        banco_de_dados.descadastrar_aluno(id_aluno)
 
     def cadastrar_professor(self, nome, idade, cpf, especialidade):
         banco_de_dados.cadastro_professor(nome, idade, cpf, especialidade)
+        print('Professor cadastrado com sucesso.')
 
-    def desmatricular_aluno(self, cpf):
-        ...
+    def desmatricular_professor(self, cpf_professor):
+        banco_de_dados.descadastrar_professor(cpf_professor)
+        print('Remoção do professor concluída.')
 
 ###################################################
 # Ações:
@@ -52,6 +56,7 @@ class Academia:
         print('2 - Buscar matrícula')
         print('3 - Cadastrar professor')
         print('4 - Buscar professor')
+        print('5 - Descadastrar professor')
         return int(input('Selecione a opção desejada: '))
 
     def menu_aluno(self):
