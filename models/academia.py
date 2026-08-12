@@ -23,7 +23,7 @@ class Academia:
         print('Remoção do professor concluída.')
 
 ###################################################
-# Ações:
+# Coordenador
 
     def listar_alunos(self):
         banco_de_dados.listagem_alunos()
@@ -36,7 +36,15 @@ class Academia:
 
     def listar_professores(self):
         banco_de_dados.listagem_professor()
-        
+
+    def buscar_professor_id(self, id_informado):
+        banco_de_dados.pesquisa_professor_id(id_informado)
+
+    def buscar_professor_nome(self, nome_informado):
+        banco_de_dados.pesquisa_professor_nome(nome_informado)
+
+###################################################################
+# Aluno
     def verificar_status_financeiro(self, cpf):
         ...
     def realizar_pagamento(self, cpf):

@@ -145,7 +145,7 @@ def listagem_professor():
         print(f'Idade: {professor[2]}')
         print(f'CPF: {professor[3]}')
         print(f'Especialidade: {professor[4]}')
-        
+
 #############################################################
 # Pesquisas:
    
@@ -161,7 +161,8 @@ def pesquisa_aluno_id(id_aluno_informado):
     resultado = cursor.fetchone()
 
     if resultado:
-        print(f'Aluno encontrado; ID {resultado[0]}')
+        print(f'ID: {resultado[0]}')
+        print(f'Nome: {resultado[1]}')
     else:
         print('Aluno não encontrado')
 
@@ -176,9 +177,44 @@ def pesquisa_aluno_nome(nome_informado):
     WHERE nome LIKE ?
     """, (f'%{nome_informado}%'))
 
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
     for aluno in resultado:
         print(aluno)
+
+    conexao.close()
+
+def pesquisa_professor_id(id_informado):
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT id_professor FROM professor
+    WHERE id_professor = ?
+    """, (id_informado))
+
+    resultado = cursor.fetchone()
+
+    if resultado:
+        print(f'ID: {resultado[0]}')
+        print(f'Nome = {resultado[1]}')
+    else:
+        print('Professor não encontrado.')
+
+    conexao.close()
+
+def pesquisa_professor_nome(nome_informado):
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT nome FROM professor
+    WHERE nome LIKE ?
+    """, (f'%{nome_informado}%'))
+
+    resultado = cursor.fetchall()
+
+    for professor in resultado:
+        print(professor)
 
     conexao.close()

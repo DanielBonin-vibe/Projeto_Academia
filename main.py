@@ -51,10 +51,12 @@ while True:
             academia.cadastrar_professor(nome, idade, cpf, especialidade)
 
         elif opcao_coordenador == 6:
-            ...
+            id_informado = input('Informe o ID do professor: ')
+            academia.buscar_professor_id(id_informado)
 
         elif opcao_coordenador == 7:
-            ...
+            nome_informado = input('Informe o nome recordado: ')
+            academia.buscar_professor_nome(nome_informado)
 
         elif opcao_coordenador == 8:
             cpf_professor = input('Informe o CPF do professor a ser removido: ')
