@@ -26,9 +26,14 @@ class Academia:
 # Ações:
 
     def listar_alunos(self):
-        ...
-    def buscar_aluno(self, cpf):
-        ...
+        banco_de_dados.listagem_alunos()
+
+    def buscar_aluno_id(self, id_aluno_informado):
+        banco_de_dados.pesquisa_aluno_id(id_aluno_informado)
+        
+    def buscar_aluno_nome(nome_informado):
+        banco_de_dados.pesquisa_aluno_nome(nome_informado)
+
     def listar_professores(self):
         ...
     def verificar_status_financeiro(self, cpf):
@@ -53,10 +58,12 @@ class Academia:
         print('=' * 20, 'MENU COORDENADOR', '=' * 20)
         print()
         print('1 - Listar alunos')
-        print('2 - Buscar matrícula')
-        print('3 - Cadastrar professor')
-        print('4 - Buscar professor')
-        print('5 - Descadastrar professor')
+        print('2 - Buscar aluno pela matrícula')
+        print('3 - Buscar aluno pelo nome')
+        print('4 - Cadastrar professor')
+        print('5 - Buscar professor pelo ID')
+        print('6 - Buscar professor pelo nome')
+        print('7 - Descadastrar professor')
         return int(input('Selecione a opção desejada: '))
 
     def menu_aluno(self):

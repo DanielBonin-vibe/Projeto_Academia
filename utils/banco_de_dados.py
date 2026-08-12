@@ -109,20 +109,56 @@ def descadastrar_professor(cpf_professor):
     conexao.close()
 
 #######################################################################
-def planos():
+# Ações:
+
+def listagem_alunos():
     conexao =  sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
     cursor.execute("""
-
+    SELECT * FROM ALUNOS
     """)
+    alunos = cursor.fetchall()
 
+    for aluno in alunos:
+        print(f"ID: {aluno[0]}")
+        print(f"Nome: {aluno[1]}")
+        print(f"CPF: {aluno[2]}")
+        print(f"Telefone: {aluno[3]}")
+        print(f"Plano: {aluno[4]}")
+        print("-" * 30)   
+        print('Listagem concluída!')
 
-def cadastrar_aluno():
+def pesquisa_aluno_id(id_aluno_informado):
     conexao =  sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
     cursor.execute("""
+    SELECT id_aluno FROM aluno
+    WHERE id_aluno = ?
+    """, (id_aluno_informado))
 
-    """)
+    resultado = cursor.fetchone()
 
+    if resultado:
+        print(f'Aluno encontrado; ID {resultado[0]}')
+    else:
+        print('Aluno não encontrado')
+
+    conexao.close()
+
+def pesquisa_aluno_nome(nome_informado):
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT nome FROM aluno
+    WHERE nome LIKE ?
+    """, (f'%{nome_informado}%'))
+
+    resultado = cursor.fetchone()
+
+    for aluno in resultado:
+        print(aluno)
+
+    conexao.close()
