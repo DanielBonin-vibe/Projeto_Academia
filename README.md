@@ -1,134 +1,173 @@
-Sistema de gerenciamento de academia desenvolvido em **Python** utilizando Programação Orientada a Objetos (POO) e persistência de dados com JSON.
+🏋️ Sistema de Academia
 
-O projeto foi criado com o objetivo de praticar conceitos fundamentais da linguagem Python, organização de código e modelagem orientada a objetos.
+Sistema de gerenciamento de academia desenvolvido em Python utilizando SQLite3 como banco de dados.
 
----
+O projeto foi desenvolvido com o objetivo de praticar conceitos de programação, persistência de dados e banco de dados relacionais, utilizando uma aplicação Python integrada ao SQLite.
 
-# 🚀 Funcionalidades
+🚀 Funcionalidades
+👤 Alunos
+Cadastro de alunos
+Listagem de alunos
+Busca de alunos
+Desmatrícula de alunos
+Associação do aluno a um plano
+Criação automática da mensalidade durante a matrícula
+💰 Controle financeiro
+Consulta do status financeiro do aluno
+Verificação do plano contratado
+Consulta do valor do plano
+Verificação se a mensalidade está paga ou pendente
+🏋️ Planos
+Cadastro e armazenamento de planos
+Definição do valor de cada plano
+Associação dos planos aos alunos e mensalidades
+👨‍🏫 Professores
+Cadastro de professores
+Listagem de professores
+Busca de professores
+Remoção de professores
+🗄️ Banco de Dados
 
-### Alunos
-- ✅ Matricular aluno
-- ✅ Listar alunos
-- ✅ Buscar aluno por CPF
-- ✅ Alterar plano
+O sistema utiliza SQLite3 para persistência dos dados.
 
-### Professores
-- ✅ Cadastrar professor
-- ✅ Listar professores
-- ✅ Buscar professor por CPF
-- ✅ Remover professor
+O banco possui as seguintes tabelas:
 
-### Persistência de dados
-- ✅ Salvamento automático em arquivos JSON
-- ✅ Carregamento automático ao iniciar o sistema
-- ✅ Conversão de objetos para dicionários (`to_dict`)
-- ✅ Reconstrução de objetos (`from_dict`)
+aluno
 
----
+Armazena os dados dos alunos e seu respectivo plano.
 
-# 🧠 Conceitos utilizados
+id_aluno — chave primária
+nome
+idade
+cpf
+id_plano — chave estrangeira
+plano
 
-- Programação Orientada a Objetos (POO)
-- Classes
-- Objetos
-- Encapsulamento
-- Métodos
-- Atributos
-- Class Methods (`@classmethod`)
-- Serialização de objetos
-- Persistência de dados com JSON
-- Organização em módulos
-- Importação entre arquivos
-- Manipulação de arquivos
-- Estruturas de repetição
-- Estruturas condicionais
+Armazena os planos disponíveis na academia.
 
----
+id_plano — chave primária
+nome_plano
+valor
+mensalidade
 
-# 📁 Estrutura do projeto
+Relaciona o aluno ao seu plano e controla o pagamento.
 
-```
+id_mensalidade — chave primária
+id_aluno — chave estrangeira
+id_plano — chave estrangeira
+pago
+professor
+
+Armazena os dados dos professores.
+
+id_professor — chave primária
+nome
+idade
+cpf
+especialidade
+🔗 Relacionamentos
+
+O banco utiliza chaves estrangeiras (Foreign Keys) para relacionar as tabelas.
+
+PLANO
+  │
+  ├──────────────┐
+  ↓              ↓
+ALUNO       MENSALIDADE
+  │              ↑
+  └──────────────┘
+
+O aluno possui um id_plano, enquanto a mensalidade possui referências ao aluno e ao plano.
+
+Dessa forma, o sistema consegue consultar informações relacionadas utilizando JOIN.
+
+🧠 Conceitos praticados
+
+Durante o desenvolvimento foram utilizados diversos conceitos de Python e SQL:
+
+Python
+SQLite3
+CRUD
+INSERT
+SELECT
+UPDATE
+DELETE
+WHERE
+LIKE
+JOIN
+Primary Key (PK)
+Foreign Key (FK)
+cursor
+commit()
+close()
+lastrowid
+Funções (def)
+Classes
+Modularização
+Organização de projeto
+📁 Estrutura do projeto
 Projeto_Academia/
+│
+├── database/
+│   └── academia.db
 │
 ├── models/
 │   ├── academia.py
 │   ├── aluno.py
-│   ├── professor.py
+│   ├── mensalidade.py
 │   ├── plano.py
-│   └── mensalidade.py
+│   └── professor.py
 │
 ├── utils/
-│   └── persistencia.py
-│
-├── dados/
-│   ├── alunos.json
-│   └── professores.json
+│   └── banco_de_dados.py
 │
 ├── main.py
 └── README.md
-```
-
----
-
-# 💾 Persistência
-
-Os dados são armazenados em arquivos JSON.
-
-Cada objeto é convertido para um dicionário utilizando o método:
-
-```python
-to_dict()
-```
-
-Quando o sistema inicia, os dados são reconstruídos através do método:
-
-```python
-from_dict()
-```
-
-Dessa forma, todas as informações permanecem salvas mesmo após o encerramento do programa.
-
----
-
-# ▶️ Como executar
-
-Clone o repositório:
-
-```bash
-git clone https://github.com/DanielBonin-vibe/Projeto_Academia.git
-```
-
-Entre na pasta:
-
-```bash
+▶️ Como executar
+1. Clone o repositório
+git clone <URL_DO_REPOSITORIO>
+2. Entre na pasta do projeto
 cd Projeto_Academia
-```
-
-Execute:
-
-```bash
+3. Execute o programa
 python main.py
-```
+📌 Fluxo de matrícula
 
----
+Ao cadastrar um aluno, o sistema recebe o id_plano.
 
-# 📚 Objetivo
+Depois de inserir o aluno no banco, o sistema utiliza lastrowid para obter o ID recém-criado e cria automaticamente sua mensalidade.
 
-Este projeto faz parte da minha jornada de estudos em Python.
+Cadastro do aluno
+       ↓
+Escolha do plano
+       ↓
+Aluno cadastrado
+       ↓
+lastrowid
+       ↓
+Mensalidade criada
+       ↓
+Pagamento = pendente
+🔎 Status financeiro
 
-O foco principal foi praticar:
+O status financeiro utiliza o relacionamento entre mensalidade e plano.
 
-- Programação Orientada a Objetos
-- Organização de projetos
-- Persistência de dados
-- Manipulação de arquivos
-- Boas práticas de programação
+Por meio de JOIN, o sistema consegue consultar:
 
----
+Plano contratado
+Valor do plano
+Situação do pagamento
+mensalidade
+     │
+     │ id_plano
+     ↓
+   plano
+     │
+     ├── nome_plano
+     └── valor
+🎯 Objetivo do projeto
 
-# 👨‍💻 Autor
+Este projeto faz parte dos estudos de Python e Banco de Dados, tendo como principal objetivo colocar em prática conceitos de programação e SQL em uma aplicação funcional.
 
-Desenvolvido por **Daniel Bonin**.
+O projeto também serve como base para futuras melhorias, como novos recursos de gerenciamento, controle financeiro e evolução da estrutura do banco de dados.
 
-GitHub:
-https://github.com/DanielBonin-vibe
+Desenvolvido para estudos de Python, SQLite3 e Banco de Dados.
