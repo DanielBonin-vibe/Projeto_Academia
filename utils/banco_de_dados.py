@@ -252,14 +252,30 @@ def pesquisa_professor_nome(nome_informado):
 
 #############################################################
 # Ações:
+
+def verificacao_status_financeiro(id_aluno): 
     conexao = sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT * FROM mensalidade
-    """)
+    SELECT mensalidade.id_plano, plano.nome_plano, plano.valor, mensalidade.pago FROM mensalidade
+    JOIN plano
+        ON mensalidade.id_plano = plano.id_plano 
+    WHERE mensalidade.id_aluno
+    """, (id_aluno))
 
-    resultado = cursor.fetchall()
+    resultado = cursor.fetchone()
 
-    for mensalidade in resultado:
-        print(f'')
+    if resultado:
+        print(f'Plano: {resultado[1]}')
+        print(f'Valor: R$ {resultado[2]}')
+
+        if resultado[3] == 1:
+            print('Status: Pago')
+        else:
+            print('Status: Pendente')
+
+    else:
+        print('Nenhuma mensalidade encontrada para esse aluno.')
+
+    conexao.close()

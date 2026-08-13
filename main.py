@@ -18,13 +18,16 @@ while True:
         opcao_aluno = academia.menu_aluno()
 
         if opcao_aluno == 1:
-            ...
+            id_aluno = input('Informe o ID da sua conta: ')
+            academia.verificar_status_financeiro(id_aluno)
         elif opcao_aluno == 2:
-            ...
-        elif opcao_aluno == 3:
             id_aluno = input('Informe o seu ID: ')
             academia.desmatricular_aluno(id_aluno)
+        else:
+            break
+
     elif opcao_inicial == 3:
+
         opcao_coordenador = academia.menu_coordenador()
 
         if opcao_coordenador == 1:
@@ -61,3 +64,5 @@ while True:
             academia.desmatricular_professor(cpf_professor)
         else:
             break
+    else:
+        break

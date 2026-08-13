@@ -45,10 +45,10 @@ class Academia:
 
 ###################################################################
 # Aluno
-    def verificar_status_financeiro(self, cpf):
-        ...
-    def realizar_pagamento(self, cpf):
-        ...
+    def verificar_status_financeiro(self, id_aluno):
+        banco_de_dados.verificacao_status_financeiro(id_aluno)
+
+
 ###########################################################################################
 
     def menu_inicial(self):
@@ -59,7 +59,7 @@ class Academia:
         print('1 - Matricular-se em nossa academia')
         print('2 - Acesso Aluno ')
         print('3 - Acesso Coordenador')
-        print('0 - Sair')
+        print('0 - Exit')
         return int(input('Digite a seleção desejada: '))
 
     def menu_coordenador(self):
@@ -74,15 +74,16 @@ class Academia:
         print('6 - Buscar professor pelo ID')
         print('7 - Buscar professor pelo nome')
         print('8 - Descadastrar professor')
+        print('0 - Exit')
         return int(input('Selecione a opção desejada: '))
 
     def menu_aluno(self):
         print()
         print('=' * 20, 'MENU ALUNO', '=' * 20)
         print()
-        print('1 - Pagar mensalidade')
-        print('2 - Verificar status financeiro')
-        print('3 - Desmatricular-se da nossa academia')
+        print('1 - Verificar status financeiro')
+        print('2 - Desmatricular-se da nossa academia')
+        print('0 - Exit')
         return int(input('Selecione a opção desejada: '))
 
     def selecao_plano(self):
@@ -90,9 +91,9 @@ class Academia:
         print('=' * 20, 'SELEÇÃO PLANO', '=' * 20)
         print()
         print('1 - Plano Básico')
-        print('2 - Plano Intermediário')
-        print('3 - Plano Premium')
-        print('4 - Sair')
+        print('2 - Plano Interprise')
+        print('3 - Plano Deluxe')
+        print('0 - Sair')
         print('=' * 40)
         print()
         return input('Digite o plano desejado: ')
