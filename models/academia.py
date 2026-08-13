@@ -80,10 +80,9 @@ class Academia:
         print()
         print('=' * 20, 'MENU ALUNO', '=' * 20)
         print()
-        print('1 - Buscar sua matrícula')
-        print('2 - Pagar mensalidade')
-        print('3 - Verificar status financeiro')
-        print('4 - Desmatricular-se da nossa academia')
+        print('1 - Pagar mensalidade')
+        print('2 - Verificar status financeiro')
+        print('3 - Desmatricular-se da nossa academia')
         return int(input('Selecione a opção desejada: '))
 
     def selecao_plano(self):

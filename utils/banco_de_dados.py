@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS aluno(
     FOREIGN KEY(id_plano) REFERENCES plano(id_plano))
 """)
 
+####################
+# Mensalidade
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS mensalidade(
     id_mensalidade INTERGER PRIMARY KEY AUTOINCREMENT,
@@ -26,6 +28,9 @@ CREATE TABLE IF NOT EXISTS mensalidade(
 """) #'id_aluno' será uma chave estrangeira, que referencia a coluna 'id-aluno' da tabela aluno
 
 
+######################
+# Professor:
+
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS professor(
     id_professor INTERGER PRIMARY KEY AUTOINCREMENT,
@@ -34,6 +39,8 @@ CREATE TABLE IF NOT EXISTS professor(
     cpf TEXT NOT NULL,
     especialidade TEXT NOT NULL)
 """)
+#########################
+# Plano:
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS plano(
@@ -41,6 +48,22 @@ CREATE TABLE IF NOT EXISTS plano(
     nome_plano TEXT NOT NULL,
     valor REAL NOT NULL)
 """)
+
+cursor.execute("""
+INSERT OR IGNORE INTO plano (nome_plano, valor)
+VALUES('Básico', 79.99)
+""")
+
+cursor.execute("""
+INSERT OR IGNORE INTO plano (nome_plano, valor)
+VALUES('Interprise', 99.99)
+""")
+
+cursor.execute("""
+INSERT OR IGNORE INTO plano (nome_plano, valor)
+VALUES('Deluxe', 150.00)
+""")
+
 #####################################################################
 # Cadastros:
 
@@ -53,8 +76,16 @@ def cadastro_aluno(nome, idade, cpf, id_plano):
     VALUES(?, ?, ?, ?)
     """, (nome, idade, cpf, id_plano))
 
+    id_aluno = cursor.lastrowid     # pega o ID que acabou de ser criado para o aluno
+
+    cursor.execute("""
+    INSERT INTO mensalidade (id_aluno, id_plano)
+    VALUES(?, ?)
+    """, (id_aluno, id_plano))
+
     conexao.commit
     conexao.close()
+
 
 
 def cadastro_professor(nome, idade, cpf, especialidade):
@@ -218,3 +249,17 @@ def pesquisa_professor_nome(nome_informado):
         print(professor)
 
     conexao.close()
+
+#############################################################
+# Ações:
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT * FROM mensalidade
+    """)
+
+    resultado = cursor.fetchall()
+
+    for mensalidade in resultado:
+        print(f'')

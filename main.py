@@ -22,8 +22,6 @@ while True:
         elif opcao_aluno == 2:
             ...
         elif opcao_aluno == 3:
-            ...
-        elif opcao_aluno == 4:
             id_aluno = input('Informe o seu ID: ')
             academia.desmatricular_aluno(id_aluno)
     elif opcao_inicial == 3:
