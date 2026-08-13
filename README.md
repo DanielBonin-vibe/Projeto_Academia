@@ -27,7 +27,7 @@ O projeto foi desenvolvido com o objetivo de praticar conceitos de programação
 - Cadastro e armazenamento de planos
 - Definição do valor de cada plano
 - Associação dos planos aos alunos e mensalidades
-- 
+
 👨‍🏫 Professores:
 
 - Cadastro de professores
