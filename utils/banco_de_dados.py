@@ -92,7 +92,7 @@ def cadastro_professor(nome, idade, cpf, especialidade):
     conexao.close()
 
 def descadastrar_aluno(id_aluno):
-    conexao =  sqlite3.connect('database/academia.db')
+    conexao = sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
     cursor.execute("""
@@ -138,18 +138,31 @@ def listagem_alunos():
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT * FROM ALUNOS
+    SELECT * FROM aluno
     """)
-    alunos = cursor.fetchall()
+    
+    listagem = cursor.fetchall()
 
-    for aluno in alunos:
+    cursor.execute("""
+    SELECT COUNT(*) FROM aluno
+    """)
+
+    total = cursor.fetchone()[0]
+
+    for aluno in listagem:
         print(f'ID: {aluno[0]}')
         print(f'Nome: {aluno[1]}')
         print(f'CPF: {aluno[2]}')
         print(f'Telefone: {aluno[3]}')
         print(f'Plano: {aluno[4]}')
-        print('-' * 30)   
-        print('Listagem concluída!')
+        print('-' * 30)
+
+    print(f'Total de alunos: {total}')
+    print('Listagem concluída')
+
+    conexao.close()
+
+    return listagem
 
 def listagem_professor():
     conexao = sqlite3.connect('database/academia.db')
@@ -189,6 +202,8 @@ def pesquisa_aluno_id(id_aluno_informado):
         print('Aluno não encontrado')
 
     conexao.close()
+
+    return resultado
 
 def pesquisa_aluno_nome(nome_informado):
     conexao = sqlite3.connect('database/academia.db')
