@@ -1,5 +1,6 @@
 from models.academia import Academia
-
+from relatorios import validacao
+from utils import menus
 
 academia = Academia()
 
@@ -64,5 +65,12 @@ while True:
             academia.desmatricular_professor(cpf_professor)
         else:
             break
+
+    elif opcao_inicial == 4:
+        acesso = validacao.senha()
+
+        if acesso:
+            menus.menu_relatorios()
+
     else:
         break

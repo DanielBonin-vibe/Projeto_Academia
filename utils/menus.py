@@ -6,6 +6,7 @@ def menu_inicial(self):
     print('1 - Matricular-se em nossa academia')
     print('2 - Acesso Aluno ')
     print('3 - Acesso Coordenador')
+    print('4 - Relatórios')
     print('0 - Exit')
     return int(input('Digite a seleção desejada: '))
 
