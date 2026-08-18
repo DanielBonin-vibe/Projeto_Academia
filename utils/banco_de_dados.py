@@ -14,8 +14,6 @@ CREATE TABLE IF NOT EXISTS aluno(
     FOREIGN KEY(id_plano) REFERENCES plano(id_plano))
 """)
 
-####################
-# Mensalidade
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS mensalidade(
     id_mensalidade INTERGER PRIMARY KEY AUTOINCREMENT,
@@ -27,10 +25,6 @@ CREATE TABLE IF NOT EXISTS mensalidade(
     FOREIGN KEY(id_plano) REFERENCES plano(id_plano))
 """) #'id_aluno' será uma chave estrangeira, que referencia a coluna 'id-aluno' da tabela aluno
 
-
-######################
-# Professor:
-
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS professor(
     id_professor INTERGER PRIMARY KEY AUTOINCREMENT,
@@ -39,8 +33,6 @@ CREATE TABLE IF NOT EXISTS professor(
     cpf TEXT NOT NULL,
     especialidade TEXT NOT NULL)
 """)
-#########################
-# Plano:
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS plano(
@@ -85,7 +77,6 @@ def cadastro_aluno(nome, idade, cpf, id_plano):
 
     conexao.commit
     conexao.close()
-
 
 
 def cadastro_professor(nome, idade, cpf, especialidade):
