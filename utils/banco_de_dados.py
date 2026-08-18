@@ -172,14 +172,18 @@ def listagem_professor():
     SELECT * FROM professor
     """)
 
-    professores = cursor.fetchall()
+    listagem = cursor.fetchall()
 
-    for professor in professores:
+    for professor in listagem:
         print(f'ID: {professor[0]}')
         print(f'Nome: {professor[1]}')
         print(f'Idade: {professor[2]}')
         print(f'CPF: {professor[3]}')
         print(f'Especialidade: {professor[4]}')
+
+    conexao.close()
+
+    return listagem
 
 #############################################################
 # Pesquisas:
@@ -220,6 +224,8 @@ def pesquisa_aluno_nome(nome_informado):
         print(aluno)
 
     conexao.close()
+
+    return resultado 
 
 def pesquisa_professor_id(id_informado):
     conexao = sqlite3.connect('database/academia.db')
