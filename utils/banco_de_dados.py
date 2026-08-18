@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS mensalidade(
     id_mensalidade INTERGER PRIMARY KEY AUTOINCREMENT,
     id_aluno INTERGER NOT NULL,
     id_plano INTERGER NOT NULL,
-    pago INETRGER NOT NULL DEFAULT 0,
+    pago INTERGER NOT NULL DEFAULT 0,
 
     FOREIGN KEY(id_aluno) REFERENCES aluno(id_aluno),
     FOREIGN KEY(id_plano) REFERENCES plano(id_plano))
@@ -246,6 +246,8 @@ def pesquisa_professor_id(id_informado):
 
     conexao.close()
 
+    return resultado
+
 def pesquisa_professor_nome(nome_informado):
     conexao = sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
@@ -261,6 +263,8 @@ def pesquisa_professor_nome(nome_informado):
         print(professor)
 
     conexao.close()
+
+    return resultado
 
 #############################################################
 # Ações:
@@ -291,3 +295,5 @@ def verificacao_status_financeiro(id_aluno):
         print('Nenhuma mensalidade encontrada para esse aluno.')
 
     conexao.close()
+
+    return resultado

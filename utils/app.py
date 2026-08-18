@@ -33,14 +33,14 @@ def listagem_alunos_api():
     return listagem 
 
 @app.get('/aluno/{id_aluno_informado}')
-def pesquisa_aluno_id_api(id_aluno_informado):
+def pesquisa_aluno_id_api(id_aluno_informado: int):
 
     resultado = banco_de_dados.pesquisa_aluno_id(id_aluno_informado)
 
     return resultado
 
 @app.get('/aluno/{nome_informado}')
-def pesquisa_aluno_nome(nome_informado):
+def pesquisa_aluno_nome(nome_informado: str):
 
     aluno = banco_de_dados.pesquisa_aluno_nome(nome_informado)
 
@@ -63,7 +63,7 @@ def cadastro_professor_api(professor = Professor):
     return {'Mensagem': 'Professor cadastrado com sucesso.'}
 
 @app.remove('/professor/{cpf_professor}')
-def descadastrar_professor_api(cpf_professor):
+def descadastrar_professor_api(cpf_professor: str):
 
     banco_de_dados.descadastrar_professor(cpf_professor)
 
@@ -77,6 +77,29 @@ def listagem_professor_api():
     return listagem
 
 @app.get('/professor/{id_informado}')
-def pesquisa_professor_id_api(id_informado):
+def pesquisa_professor_id_api(id_informado: int):
 
-    banco_de_dados.pesquisa_professor_id
+    resultado = banco_de_dados.pesquisa_professor_id(id_informado)
+
+    return resultado 
+
+@app.get('professor/{nome_informado}')
+def pesquisa_professor_nome(nome_informado: str):
+
+    resultado = banco_de_dados.pesquisa_professor_nome(nome_informado)
+
+    return resultado 
+
+#######################################################################
+# Mensalidade:
+
+class Mensalidade(BaseModel):
+    nome_plano: str
+    valor: int
+
+@app.get('/mensalidade/{ìd_aluno}')
+def verificacao_status_financeiro_api(id_aluno: int):
+
+    resultado = banco_de_dados.verificacao_status_financeiro(id_aluno)
+
+    return resultado
