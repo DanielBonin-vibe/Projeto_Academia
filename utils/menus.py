@@ -1,4 +1,4 @@
-def menu_inicial(self):
+def menu_inicial():
     print('=' * 40)
     print('' * 20, 'ACADEMIA', ' * 20')
     print('=' * 40)
@@ -10,7 +10,7 @@ def menu_inicial(self):
     print('0 - Exit')
     return int(input('Digite a seleção desejada: '))
 
-def menu_coordenador(self):
+def menu_coordenador():
     print()
     print('=' * 20, 'MENU COORDENADOR', '=' * 20)
     print()
@@ -25,7 +25,7 @@ def menu_coordenador(self):
     print('0 - Exit')
     return int(input('Selecione a opção desejada: '))
 
-def menu_aluno(self):
+def menu_aluno():
     print()
     print('=' * 20, 'MENU ALUNO', '=' * 20)
     print()
@@ -34,7 +34,7 @@ def menu_aluno(self):
     print('0 - Exit')
     return int(input('Selecione a opção desejada: '))
 
-def selecao_plano(self):
+def selecao_plano():
     print()
     print('=' * 20, 'SELEÇÃO PLANO', '=' * 20)
     print()
