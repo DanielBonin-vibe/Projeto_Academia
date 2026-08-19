@@ -301,4 +301,95 @@ def verificacao_status_financeiro(id_aluno):
 #############################################################
 # Relatórios:
 
+def relatorio_aluno_padrao():
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
 
+    cursor.execute("""
+    SELECT * FROM aluno
+    """)
+
+    relatorio = cursor.fetchall()
+
+    print('=' * 50)
+    print('=' * 15, 'RELATÓRIO ALUNO PADRÃO', '=' * 15)
+    print('=' * 50)
+    for aluno in relatorio:
+        print(f'ID: {aluno[0]}')
+        print(f'NOME: {aluno[1]}')
+        print(f'IDADE: {aluno[2]}')
+        print(f'CPF: {aluno[3]}')
+        print(f'PLANO: {aluno[4]}')
+        print()
+
+    conexao.close()
+
+def relatorio_aluno_nome_ordem_alfabetica():
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT * FROM aluno
+    ORDER BY nome ASC
+    """)
+
+    relatorio = cursor.fetchall()
+
+    print('=' * 50)
+    print('=' * 15, 'RELATÓRIO ALUNO PELO NOME', '=' * 15)
+    print('=' * 50)
+    for aluno in relatorio:
+        print(f'ID: {aluno[0]}')
+        print(f'NOME: {aluno[1]}')
+        print(f'IDADE: {aluno[2]}')
+        print(f'CPF: {aluno[3]}')
+        print(f'PLANO: {aluno[4]}')
+        print()
+
+    conexao.close()
+
+def relatorio_aluno_media_idade():
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT
+        CASE
+            WHEN idade BETWEEN 14 AND 17 THEN '14 a 17'
+            WHEN idade BETWEEN 18 AND 30 THEN '18 a 30'
+            WHEN idade BETWEEN 31 AND 50 THEN '31 a 40'
+            ELSE '51+'
+        END AS faixa_etaria,
+        COUNT(*) quantidade
+    FROM aluno
+    GROUP BY faixa_etaria
+    ORDER BY faixa_etaria;
+    """) 
+
+    faixas = cursor.fetchall()
+
+    print('=' * 50)
+    print('=' * 15, 'RELATÓRIO ALUNO POR FAIXA ETÁRIA', '=' * 15)
+    print('=' * 50)
+    for faixa in faixas:
+        print(f'Faixa etária: {faixa[0]}')
+        print(f'Total: {faixa[1]}')
+        print()
+
+    conexao.close()
+
+def relatorio_aluno_plano():
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT aluno.id_aluno, plano.nome_plano FROM aluno
+    JOIN plano
+        ON aluno.id_plano = plano.id_plano;
+    """)
+
+    planos = cursor.fetchall()
+    for plano in planos:
+        print(plano[0], plano[1])
+
+    conexao.close()
