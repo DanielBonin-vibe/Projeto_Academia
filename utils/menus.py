@@ -44,7 +44,7 @@ def selecao_plano(self):
     print('0 - Sair')
     print('=' * 40)
     print()
-    return input('Digite o plano desejado: ')
+    return int(input('Digite o plano desejado: '))
 
 def menu_relatorios(self):
     print()
@@ -54,7 +54,7 @@ def menu_relatorios(self):
     print('1 - Relatório dos alunos')
     print('2 - Relatório dos professores')
     print('3 - Relatório das mensalidades')
-    print('4 - Relatório dos planos')
+    return int(input('Informe a ação requerida: '))
 
 def menu_relatorio_aluno():
     print()
@@ -66,7 +66,7 @@ def menu_relatorio_aluno():
     print('4 - Relatório por média de idade')
     print('5 - Relatório por plano')
     print('6 - Exit')
-    return 'Informe a ação requerida'
+    return int(input('Informe a ação requerida: '))
 
 def menu_relatorio_professor():
     print()
@@ -79,7 +79,7 @@ def menu_relatorio_professor():
     print('3 - Relatório por média de idade') 
     print('4 - Relatório por especialidade')
     print('5 - Exit') 
-    return 'Informe a ação requerida'
+    return int(input('Informe a ação requerida: '))
 
 def menu_relatorio_mensalidade():
     print()
@@ -91,4 +91,4 @@ def menu_relatorio_mensalidade():
     print('2 - Relatório por mensalidade paga/pendente')
     print('3 - Relatório de faturamento')
     print('4 - Exit')
-    return 'Informe a ação requerida'
+    return int(input('Informe a ação requerida: '))

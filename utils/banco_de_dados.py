@@ -297,3 +297,8 @@ def verificacao_status_financeiro(id_aluno):
     conexao.close()
 
     return resultado
+
+#############################################################
+# Relatórios:
+
+
