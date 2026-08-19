@@ -299,7 +299,7 @@ def verificacao_status_financeiro(id_aluno):
     return resultado
 
 #############################################################
-# Relatórios:
+# Relatórios aluno:
 
 def relatorio_aluno_padrao():
     conexao = sqlite3.connect('database/academia.db')
@@ -393,3 +393,108 @@ def relatorio_aluno_plano():
         print(plano[0], plano[1])
 
     conexao.close()
+
+####################################################################################################
+# Relatórios professor:
+
+def relatorio_professor_padrao():
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT * FROM professor
+    """)
+
+    professores = cursor.fetchall()
+
+    print('=' * 50)
+    print('=' * 15, 'RELATÓRIO PROFESSOR PADRÃO', '=' * 15)
+    print('=' * 50)
+    for professor in professores:
+        print(f'ID: {professor[0]}')
+        print(f'NOME: {professor[1]}')
+        print(f'IDADE: {professor[2]}')
+        print(f'CPF: {professor[3]}')
+        print(f'ESPECIALIDADE: {professor[4]}')
+        print()
+
+def relatorio_professor_nome_ordem_alfabetica():
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT * FROM professor
+    ORDER BY nome ASC
+    """)
+
+    professores = cursor.fetchall()
+
+    print('=' * 50)
+    print('=' * 15, 'RELATÓRIO PROFESSOR PELO NOME', '=' * 15)
+    print('=' * 50)
+    for professor in professores:
+        print(f'ID: {professor[0]}')
+        print(f'NOME: {professor[1]}')
+        print(f'IDADE: {professor[2]}')
+        print(f'CPF: {professor[3]}')
+        print(f'ESPECIALIDADE: {professor[4]}')
+        print()
+
+def relatorio_professor_media_idade():
+    conexao = sqlite3.connect('database/academia.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+    SELECT
+        CASE 
+            WHEN idade BETWEEN 18 AND 25 THEN '18 a 25'
+            WHEN idade BETWEEN 26 AND 40 THEN '26 a 40'
+            WHEN idade BETWEEN 41 AND 60 THEN '41 a 60'
+            ELSE '60+'
+        END AS faixa_etaria
+        COUNT(*) quantidade
+    FROM professor
+    ORDER BY faixa_etaria
+    GROUP BY faixa_etaria;
+    """)
+
+    faixas = cursor.fetchall()
+
+    print('=' * 50)
+    print('=' * 15, 'RELATÓRIO PROFESSOR POR FAIXA ETÁRIA', '=' * 15)
+    print('=' * 50)
+    for faixa in faixas:
+        print(f'Faixa etária: {faixa[0]}')
+        print(f'Total: {faixa[1]}')
+        print()
+
+    conexao.close()
+
+def relatorio_professor_especialidade():
+    conexao = sqlite3.connect('database/academia.db')
+
+    cursor.execute("""
+    SELECT
+        id_professor,
+        nome,
+        idade,
+        cpf,
+        especialidade
+    FROM professor
+    ORDER BY especialidade ASC
+    """)
+
+    professores = cursor.fetchall()
+
+    print('=' * 50)
+    print('=' * 15, 'RELATÓRIO PROFESSOR ESPECIALIDADE', '=' * 15)
+    print('=' * 50)
+    for professor in professores:
+        print(f'ID: {professor[0]}')
+        print(f'NOME: {professor[1]}')
+        print(f'IDADE: {professor[2]}')
+        print(f'CPF: {professor[3]}')
+        print(f'ESPECIALIDADE: {professor[4]}')
+        print()
+
+    cursor.close()
