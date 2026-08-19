@@ -71,42 +71,6 @@ while True:
 
         if acesso:
             opcao_relatorio = menus.menu_relatorios()
-
-            if opcao_relatorio == 1:
-                opcao_relatorio_aluno = menus.menu_relatorio_aluno()
-
-                if opcao_relatorio_aluno == 1:
-                    ...
-                elif opcao_relatorio_aluno == 2:
-                    ...
-                elif opcao_relatorio_aluno == 3:
-                    ...
-                elif opcao_relatorio_aluno == 4:
-                    ...
-
-            elif opcao_relatorio == 2:
-                opcao_relatorio_professor = menus.menu_relatorio_professor()
-
-                if opcao_relatorio_professor == 1:
-                    ...
-                elif opcao_relatorio_professor == 2:
-                    ...
-                elif opcao_relatorio_professor == 3:
-                    ...
-                elif opcao_relatorio_professor == 4:
-                    ...
-
-        
-            elif opcao_relatorio == 3:
-           
-                opcao_relatorio_mensalidade = menus.menu_relatorio_mensalidade()
-
-                if opcao_relatorio_mensalidade == 1:
-                    ...
-                elif opcao_relatorio_mensalidade == 2:
-                    ...
-                elif opcao_relatorio_mensalidade == 3:
-                    ...
                 
         else:
             print('Acesso negado.')
