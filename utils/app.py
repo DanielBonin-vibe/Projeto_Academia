@@ -18,10 +18,10 @@ def cadastrar_aluno_api(aluno = Aluno):
 
     return {'Mensagem': 'Cadastro realizado com sucesso.'}
 
-@app.delete('/aluno/{id_aluno}')
-def descadastrar_aluno_api(id_aluno):
+@app.delete('/aluno/{cpf}')
+def descadastrar_aluno_api(cpf):
 
-    quantidade = banco_de_dados.descadastrar_aluno(id_aluno)
+    quantidade = banco_de_dados.descadastrar_aluno(cpf)
 
     if quantidade == 0:
         raise HTTPException(

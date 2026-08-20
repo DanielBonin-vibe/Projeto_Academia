@@ -22,8 +22,8 @@ while True:
             cpf = input('Informe o CPF da sua conta: ')
             academia.verificar_status_financeiro(cpf)
         elif opcao_aluno == 2:
-            id_aluno = input('Informe o seu ID: ')
-            academia.desmatricular_aluno(id_aluno)
+            cpf = input('Informe o CPF da conta: ')
+            academia.desmatricular_aluno(cpf)
         else:
             break
 
@@ -43,7 +43,7 @@ while True:
             academia.buscar_aluno_nome(nome_informado)
 
         elif opcao_coordenador == 4:
-            academia.listar_professores
+            academia.listar_professores()
 
         elif opcao_coordenador == 5:
             nome = input('Informe o nome completo do professor: ')
@@ -57,8 +57,8 @@ while True:
             academia.buscar_professor_id(id_informado)
 
         elif opcao_coordenador == 7:
-            nome_informado = input('Informe o nome recordado: ')
-            academia.buscar_professor_nome(nome_informado)
+            nome_professor_informado = input('Informe o nome recordado: ')
+            academia.buscar_professor_nome(nome_professor_informado)
 
         elif opcao_coordenador == 8:
             cpf_professor = input('Informe o CPF do professor a ser removido: ')

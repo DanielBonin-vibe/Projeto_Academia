@@ -97,19 +97,16 @@ def cadastro_professor(nome, idade, cpf, especialidade):
     conexao.commit()
     conexao.close()
 
-def descadastrar_aluno(id_aluno):
+def descadastrar_aluno(cpf):
     conexao = sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
-    cursor.execute("""
-    DELETE FROM mensalidade
-    WHERE id_aluno = ?
-    """, (id_aluno))
+    print(f"CPF recebido: {cpf}")
 
     cursor.execute("""
     DELETE FROM aluno
-    WHERE id_aluno = ?
-    """, (id_aluno))
+    WHERE cpf = ?
+    """, (cpf,))
 
     quantidade = cursor.rowcount
 
@@ -187,7 +184,7 @@ def pesquisa_aluno_id(id_aluno_informado):
     cursor.execute("""
     SELECT id_aluno FROM aluno
     WHERE id_aluno = ?
-    """, (id_aluno_informado))
+    """, (id_aluno_informado))[1]
 
     resultado = cursor.fetchone()
 
@@ -200,11 +197,11 @@ def pesquisa_aluno_nome(nome_informado):
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT nome FROM aluno
+    SELECT * FROM aluno
     WHERE nome LIKE ?
     """, (f'%{nome_informado}%'))
 
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchone()[3]
 
     conexao.close()
 
@@ -215,26 +212,26 @@ def pesquisa_professor_id(id_informado):
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT id_professor FROM professor
+    SELECT * FROM professor
     WHERE id_professor = ?
-    """, (id_informado))
+    """, (id_informado,))
 
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchone()[1]
 
     conexao.close()
 
     return resultado
 
-def pesquisa_professor_nome(nome_informado):
+def pesquisa_professor_nome(nome_professor_informado):
     conexao = sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT nome FROM professor
+    SELECT * FROM professor
     WHERE nome LIKE ?
-    """, (f'%{nome_informado}%'))
+    """, (f'%{nome_professor_informado}%',))
 
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchone()[3]
 
     conexao.close()
 

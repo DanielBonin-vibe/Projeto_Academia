@@ -2,8 +2,6 @@ from utils import banco_de_dados
 
 class Academia:                  
 
-    def __init__(self):
-        ...
 ###########################################
 # Cadastros:
 
@@ -11,8 +9,9 @@ class Academia:
         banco_de_dados.cadastro_aluno(nome, idade, cpf, id_plano)
         print('Matrícula concluída com sucesso.')
 
-    def desmatricular_aluno(self, id_aluno):
-        banco_de_dados.descadastrar_aluno(id_aluno)
+    def desmatricular_aluno(self, cpf):
+        banco_de_dados.descadastrar_aluno(cpf)
+        print('Desmatricula concluída.')
 
     def cadastrar_professor(self, nome, idade, cpf, especialidade):
         banco_de_dados.cadastro_professor(nome, idade, cpf, especialidade)
@@ -26,22 +25,28 @@ class Academia:
 # Coordenador
 
     def listar_alunos(self):
-        banco_de_dados.listagem_alunos()
+        listagem, = banco_de_dados.listagem_alunos()
+        print(listagem)
 
     def buscar_aluno_id(self, id_aluno_informado):
-        banco_de_dados.pesquisa_aluno_id(id_aluno_informado)
+        resultado = banco_de_dados.pesquisa_aluno_id(id_aluno_informado)
+        print(resultado)
         
     def buscar_aluno_nome(nome_informado):
-        banco_de_dados.pesquisa_aluno_nome(nome_informado)
+        listagem = banco_de_dados.pesquisa_aluno_nome(nome_informado)
+        print(listagem)
 
     def listar_professores(self):
-        banco_de_dados.listagem_professor()
+        resultado = banco_de_dados.listagem_professor()
+        print(resultado)
 
     def buscar_professor_id(self, id_informado):
-        banco_de_dados.pesquisa_professor_id(id_informado)
+        resultado = banco_de_dados.pesquisa_professor_id(id_informado)
+        print(resultado)
 
-    def buscar_professor_nome(self, nome_informado):
-        banco_de_dados.pesquisa_professor_nome(nome_informado)
+    def buscar_professor_nome(self, nome_professor_informado):
+        resultado = banco_de_dados.pesquisa_professor_nome(nome_professor_informado)
+        print(resultado)
 
 ###################################################################
 # Aluno
