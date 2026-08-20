@@ -162,13 +162,6 @@ def listagem_professor():
 
     listagem = cursor.fetchall()
 
-    for professor in listagem:
-        print(f'ID: {professor[0]}')
-        print(f'Nome: {professor[1]}')
-        print(f'Idade: {professor[2]}')
-        print(f'CPF: {professor[3]}')
-        print(f'Especialidade: {professor[4]}')
-
     conexao.close()
 
     return listagem
@@ -217,12 +210,6 @@ def pesquisa_professor_id(id_informado):
 
     resultado = cursor.fetchone()
 
-    if resultado:
-        print(f'ID: {resultado[0]}')
-        print(f'Nome = {resultado[1]}')
-    else:
-        print('Professor não encontrado.')
-
     conexao.close()
 
     return resultado
@@ -237,9 +224,6 @@ def pesquisa_professor_nome(nome_informado):
     """, (f'%{nome_informado}%'))
 
     resultado = cursor.fetchall()
-
-    for professor in resultado:
-        print(professor)
 
     conexao.close()
 

@@ -52,18 +52,23 @@ def pesquisa_aluno_id_api(id_aluno_informado: int):
 @app.get('/aluno/pesquisa-nome/{nome_informado}')
 def pesquisa_aluno_nome(nome_informado: str):
 
-    aluno = banco_de_dados.pesquisa_aluno_nome(nome_informado)
+    resultado = banco_de_dados.pesquisa_aluno_nome(nome_informado)
 
-    return aluno
+    if resultado is None:
+        raise HTTPException(
+            status_code=404,
+            detail='Nenhum aluno encontrado.'
+        )
+    return {'Mensagem': 'Conta removido com isso.'}
 
 #####################################################################
 # Professor
 
 class Professor(BaseModel):
-    nome: str
-    idade: int
-    cpf: str
-    especialidade: str
+    nome: str = Field(min_lenght=3)
+    idade: int = Field(gt=0)
+    cpf: str = Field(min_lenght=11, max_lenght=11)
+    especialidade: str = Field (min_lenght=3)
 
 @app.post('/professor')
 def cadastro_professor_api(professor = Professor):
@@ -72,7 +77,7 @@ def cadastro_professor_api(professor = Professor):
 
     return {'Mensagem': 'Professor cadastrado com sucesso.'}
 
-@app.remove('/professor/{cpf_professor}')
+@app.delete('/professor/{cpf_professor}')
 def descadastrar_professor_api(cpf_professor: str):
 
     banco_de_dados.descadastrar_professor(cpf_professor)
