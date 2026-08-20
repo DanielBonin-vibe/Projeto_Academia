@@ -5,9 +5,9 @@ cursor = conexao.cursor()
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS aluno(
-    id_aluno INTERGER PRIMARY KEY AUTOINCREMENT,
+    id_aluno INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
-    idade INTERGER NOT NULL,
+    idade INTEGER NOT NULL,
     cpf TEXT NOT NULL,
     id_plano TEXT NOT NULL,
 
@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS aluno(
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS mensalidade(
     id_mensalidade INTERGER PRIMARY KEY AUTOINCREMENT,
-    id_aluno INTERGER NOT NULL,
-    id_plano INTERGER NOT NULL,
-    pago INTERGER NOT NULL DEFAULT 0,
+    id_aluno INTEGER NOT NULL,
+    id_plano INTEGER NOT NULL,
+    pago INTEGER NOT NULL DEFAULT 0,
 
     FOREIGN KEY(id_aluno) REFERENCES aluno(id_aluno),
     FOREIGN KEY(id_plano) REFERENCES plano(id_plano))
@@ -27,16 +27,16 @@ CREATE TABLE IF NOT EXISTS mensalidade(
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS professor(
-    id_professor INTERGER PRIMARY KEY AUTOINCREMENT,
+    id_professor INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
-    idade INTERGET NOT NULL,
+    idade INTEGER NOT NULL,
     cpf TEXT NOT NULL,
     especialidade TEXT NOT NULL)
 """)
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS plano(
-    id_plano INTERGER PRIMARY KEY AUTOINCREMENT,
+    id_plano INTEGER PRIMARY KEY AUTOINCREMENT,
     nome_plano TEXT NOT NULL,
     valor REAL NOT NULL)
 """)

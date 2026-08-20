@@ -1,15 +1,15 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
 from utils import banco_de_dados
 
 app = FastAPI()
 
 # Aluno
 class Aluno(BaseModel):
-    nome: str
-    idade: int
-    cpf: str
-    id_plano: int
+    nome: str = Field(min_lenght=3)
+    idade: int = Field(gt=0)
+    cpf: str = Field(min_length=11, max_lenght=11)
+    id_plano: int = Field(gt=0)
 
 @app.post('/aluno')
 def cadastrar_aluno_api(aluno = Aluno):
@@ -32,14 +32,14 @@ def listagem_alunos_api():
 
     return listagem 
 
-@app.get('/aluno/{id_aluno_informado}')
+@app.get('/aluno/pesquisa-id/{id_aluno_informado}')
 def pesquisa_aluno_id_api(id_aluno_informado: int):
 
     resultado = banco_de_dados.pesquisa_aluno_id(id_aluno_informado)
 
     return resultado
 
-@app.get('/aluno/{nome_informado}')
+@app.get('/aluno/pesquisa-nome/{nome_informado}')
 def pesquisa_aluno_nome(nome_informado: str):
 
     aluno = banco_de_dados.pesquisa_aluno_nome(nome_informado)
