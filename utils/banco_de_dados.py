@@ -105,13 +105,12 @@ def descadastrar_aluno(id_aluno):
     WHERE id_aluno = ?
     """, (id_aluno))
 
-    if cursor.rowcount == 0:                      # Serve para verificar se o id existe mesmo
-        print('Aluno, não encontrado')
-    else:
-        print('Aluno e mensalidade removidos com sucesso.')
+    quantidade = cursor.rowcount
 
     conexao.commit()
     conexao.close()
+
+    return quantidade
 
 def descadastrar_professor(cpf_professor):
     conexao =  sqlite3.connect('database/academia.db')
@@ -149,20 +148,9 @@ def listagem_alunos():
 
     total = cursor.fetchone()[0]
 
-    for aluno in listagem:
-        print(f'ID: {aluno[0]}')
-        print(f'Nome: {aluno[1]}')
-        print(f'CPF: {aluno[2]}')
-        print(f'Telefone: {aluno[3]}')
-        print(f'Plano: {aluno[4]}')
-        print('-' * 30)
-
-    print(f'Total de alunos: {total}')
-    print('Listagem concluída')
-
     conexao.close()
 
-    return listagem
+    return listagem, total
 
 def listagem_professor():
     conexao = sqlite3.connect('database/academia.db')
@@ -199,12 +187,6 @@ def pesquisa_aluno_id(id_aluno_informado):
 
     resultado = cursor.fetchone()
 
-    if resultado:
-        print(f'ID: {resultado[0]}')
-        print(f'Nome: {resultado[1]}')
-    else:
-        print('Aluno não encontrado')
-
     conexao.close()
 
     return resultado
@@ -218,10 +200,7 @@ def pesquisa_aluno_nome(nome_informado):
     WHERE nome LIKE ?
     """, (f'%{nome_informado}%'))
 
-    resultado = cursor.fetchall()
-
-    for aluno in resultado:
-        print(aluno)
+    resultado = cursor.fetchone()
 
     conexao.close()
 

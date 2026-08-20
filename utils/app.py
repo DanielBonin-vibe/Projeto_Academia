@@ -21,9 +21,14 @@ def cadastrar_aluno_api(aluno = Aluno):
 @app.delete('/aluno/{id_aluno}')
 def descadastrar_aluno_api(id_aluno):
 
-    banco_de_dados.descadastrar_aluno(id_aluno)
+    quantidade = banco_de_dados.descadastrar_aluno(id_aluno)
 
-    return {'Mensagem': 'Aluno descadastrado com sucesso.'}
+    if quantidade == 0:
+        raise HTTPException(
+            status_code=404,
+            detail='Nenhum aluno encontrado.'
+        )
+    return {"mensagem": "Aluno removido com sucesso."}
 
 @app.get('/aluno')
 def listagem_alunos_api():
@@ -37,7 +42,12 @@ def pesquisa_aluno_id_api(id_aluno_informado: int):
 
     resultado = banco_de_dados.pesquisa_aluno_id(id_aluno_informado)
 
-    return resultado
+    if resultado is None:
+        raise HTTPException(
+            status_code=404,
+            detail='Nenhum aluno encontrado.'
+        )
+    return {"mensagem": "Aluno removido com sucesso."}   
 
 @app.get('/aluno/pesquisa-nome/{nome_informado}')
 def pesquisa_aluno_nome(nome_informado: str):
