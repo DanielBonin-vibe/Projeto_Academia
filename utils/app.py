@@ -33,10 +33,27 @@ def descadastrar_aluno_api(id_aluno):
 @app.get('/aluno')
 def listagem_alunos_api():
 
-    listagem = banco_de_dados.listagem_alunos()
+    resultado = banco_de_dados.listagem_alunos()
 
-    return listagem 
+    listagem = resultado[0]
+    total = resultado[1]
 
+    alunos = []
+
+    for aluno in listagem:
+        alunos.append({
+            "id_aluno": aluno[0],
+            "nome": aluno[1],
+            "idade": aluno[2],
+            "cpf": aluno[3],
+            "telefone": aluno[4],
+            "id_plano": aluno[5]
+        })
+
+    return {
+        "total": total,
+        "alunos": alunos
+    }
 @app.get('/aluno/pesquisa-id/{id_aluno_informado}')
 def pesquisa_aluno_id_api(id_aluno_informado: int):
 
@@ -49,7 +66,7 @@ def pesquisa_aluno_id_api(id_aluno_informado: int):
         )
     return {"mensagem": "Aluno removido com sucesso."}   
 
-@app.get('/aluno/pesquisa-nome/{nome_informado}')
+@app.get('/aluno/pesquisa-aluno-nome/{nome_informado}')
 def pesquisa_aluno_nome(nome_informado: str):
 
     resultado = banco_de_dados.pesquisa_aluno_nome(nome_informado)
@@ -80,28 +97,62 @@ def cadastro_professor_api(professor = Professor):
 @app.delete('/professor/{cpf_professor}')
 def descadastrar_professor_api(cpf_professor: str):
 
-    banco_de_dados.descadastrar_professor(cpf_professor)
+    quantidade = banco_de_dados.descadastrar_professor(cpf_professor)
+
+    if quantidade == 0:
+        raise HTTPException(
+            status_code=404,
+            detail='Professor não encontrado.'
+        )
 
     return {'Mensagem': 'Professor descadastrado com sucesso.'}
 
 @app.get('/professor')
 def listagem_professor_api():
 
-    listagem = banco_de_dados.listagem_professor()
+    resultado = banco_de_dados.listagem_professor()
 
-    return listagem
+    listagem = resultado[0]
+    total = resultado[1]
 
-@app.get('/professor/{id_informado}')
+    professores = []
+
+    for professor in listagem:
+        professores.append({
+            "id_professor": professor[0],
+            "nome": professor[1],
+            "idade": professor[2],
+            "cpf": professor[3],
+            "especialidade": professor[4]
+        })
+
+    return {
+        "total": total,
+        "professores": professores
+    }
+
+@app.get('/professor/prequisa-professor-id/{id_informado}')
 def pesquisa_professor_id_api(id_informado: int):
 
     resultado = banco_de_dados.pesquisa_professor_id(id_informado)
 
-    return resultado 
+    if resultado is None:
+        raise HTTPException(
+            status_code=404,
+            detail='Professor não encontrado.'
+        )
+    return resultado
 
-@app.get('professor/{nome_informado}')
+@app.get('professor/pesquisa-professor-nome{nome_informado}')
 def pesquisa_professor_nome(nome_informado: str):
 
     resultado = banco_de_dados.pesquisa_professor_nome(nome_informado)
+
+    if resultado is None:
+        raise HTTPException(
+            status_code=404,
+            detail='Professor não encontrado.'
+        )
 
     return resultado 
 
@@ -109,12 +160,27 @@ def pesquisa_professor_nome(nome_informado: str):
 # Mensalidade:
 
 class Mensalidade(BaseModel):
-    nome_plano: str
+    nome_plano: str = Field(min_length=3)
     valor: int
 
-@app.get('/mensalidade/{ìd_aluno}')
+@app.get('/mensalidade/status-financeiro{ìd_aluno}')
 def verificacao_status_financeiro_api(id_aluno: int):
 
     resultado = banco_de_dados.verificacao_status_financeiro(id_aluno)
 
-    return resultado
+    if resultado == 0:
+        raise HTTPException(
+            status_code=404,
+            detail='Não conseguimos verificar as informações do aluno.'
+        )
+
+    if resultado[3] == 1:
+        status = 'Pago'
+    else:
+        status = 'Pendente'
+
+    return {
+        "nome_plano": resultado[1],
+        "valor": resultado[2],
+        "status": status
+    }

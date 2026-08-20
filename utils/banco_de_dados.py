@@ -121,13 +121,12 @@ def descadastrar_professor(cpf_professor):
     WHERE cpf = ?
     """, (cpf_professor))
 
-    if cursor.rowcount == 0:
-        print('Professor não localizado')
-    else:
-        print('Professor removido com sucesso.')
+    quantidade = cursor.rowcount
 
     conexao.commit()
     conexao.close()
+
+    return quantidade
 
 #######################################################################
 # Listagem
@@ -162,9 +161,15 @@ def listagem_professor():
 
     listagem = cursor.fetchall()
 
+    cursor.execute("""
+    SELECT COUNT(*) FROM professor
+    """)
+
+    total = cursor.fetchone()[0]
+
     conexao.close()
 
-    return listagem
+    return listagem, total
 
 #############################################################
 # Pesquisas:
@@ -223,7 +228,7 @@ def pesquisa_professor_nome(nome_informado):
     WHERE nome LIKE ?
     """, (f'%{nome_informado}%'))
 
-    resultado = cursor.fetchall()
+    resultado = cursor.fetchone()
 
     conexao.close()
 
@@ -244,18 +249,6 @@ def verificacao_status_financeiro(id_aluno):
     """, (id_aluno))
 
     resultado = cursor.fetchone()
-
-    if resultado:
-        print(f'Plano: {resultado[1]}')
-        print(f'Valor: R$ {resultado[2]}')
-
-        if resultado[3] == 1:
-            print('Status: Pago')
-        else:
-            print('Status: Pendente')
-
-    else:
-        print('Nenhuma mensalidade encontrada para esse aluno.')
 
     conexao.close()
 
