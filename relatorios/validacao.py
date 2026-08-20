@@ -1,5 +1,5 @@
 def senha():
-    senha_administrador = 'Boni180506'
+    senha_administrador = 'B@nin180506'
     contagem = 0
 
     while contagem < 3:

@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS aluno(
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS mensalidade(
-    id_mensalidade INTERGER PRIMARY KEY AUTOINCREMENT,
+    id_mensalidade INTEGER PRIMARY KEY AUTOINCREMENT,
     id_aluno INTEGER NOT NULL,
     id_plano INTEGER NOT NULL,
     pago INTEGER NOT NULL DEFAULT 0,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS professor(
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS plano(
     id_plano INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome_plano TEXT NOT NULL,
+    nome_plano TEXT NOT NULL UNIQUE,
     valor REAL NOT NULL)
 """)
 
@@ -56,11 +56,14 @@ INSERT OR IGNORE INTO plano (nome_plano, valor)
 VALUES('Deluxe', 150.00)
 """)
 
+conexao.commit()
+conexao.close()
+
 #####################################################################
 # Cadastros:
 
 def cadastro_aluno(nome, idade, cpf, id_plano):
-    conexao =  sqlite3.connect('database/academia.db')
+    conexao = sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
     cursor.execute("""
@@ -75,9 +78,12 @@ def cadastro_aluno(nome, idade, cpf, id_plano):
     VALUES(?, ?)
     """, (id_aluno, id_plano))
 
-    conexao.commit
-    conexao.close()
+    teste = cursor.fetchone()
 
+    print("DADO SALVO:", teste)
+
+    conexao.commit()
+    conexao.close()
 
 def cadastro_professor(nome, idade, cpf, especialidade):
     conexao =  sqlite3.connect('database/academia.db')
@@ -237,16 +243,19 @@ def pesquisa_professor_nome(nome_informado):
 #############################################################
 # Ações:
 
-def verificacao_status_financeiro(id_aluno): 
+def verificacao_status_financeiro(cpf): 
     conexao = sqlite3.connect('database/academia.db')
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT mensalidade.id_plano, plano.nome_plano, plano.valor, mensalidade.pago FROM mensalidade
+    SELECT mensalidade.id_plano, plano.nome_plano, plano.valor, mensalidade.pago
+    FROM mensalidade
     JOIN plano
-        ON mensalidade.id_plano = plano.id_plano 
-    WHERE mensalidade.id_aluno
-    """, (id_aluno))
+        ON mensalidade.id_plano = plano.id_plano
+    JOIN aluno
+        ON mensalidade.id_aluno = aluno.id_aluno
+    WHERE aluno.cpf = ?
+    """, (cpf,))
 
     resultado = cursor.fetchone()
 

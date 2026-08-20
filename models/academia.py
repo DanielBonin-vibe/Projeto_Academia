@@ -1,4 +1,4 @@
-from Projeto_Academia.utils import banco_de_dados
+from utils import banco_de_dados
 
 class Academia:                  
 
@@ -45,8 +45,9 @@ class Academia:
 
 ###################################################################
 # Aluno
-    def verificar_status_financeiro(self, id_aluno):
-        banco_de_dados.verificacao_status_financeiro(id_aluno)
+    def verificar_status_financeiro(self, cpf):
+        resultado = banco_de_dados.verificacao_status_financeiro(cpf)
+        print(resultado)
 
 
 

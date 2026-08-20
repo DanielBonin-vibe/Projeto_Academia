@@ -1,6 +1,6 @@
 def menu_inicial():
     print('=' * 40)
-    print('' * 20, 'ACADEMIA', ' * 20')
+    print('=' * 15, 'ACADEMIA','=' * 15)
     print('=' * 40)
     print()
     print('1 - Matricular-se em nossa academia')
@@ -12,7 +12,7 @@ def menu_inicial():
 
 def menu_coordenador():
     print()
-    print('=' * 20, 'MENU COORDENADOR', '=' * 20)
+    print('=' * 16, 'MENU COORDENADOR', '=' * 16)
     print()
     print('1 - Listar alunos')
     print('2 - Buscar aluno pela matrícula')
@@ -36,7 +36,7 @@ def menu_aluno():
 
 def selecao_plano():
     print()
-    print('=' * 20, 'SELEÇÃO PLANO', '=' * 20)
+    print('=' * 18, 'SELEÇÃO PLANO', '=' * 18)
     print()
     print('1 - Plano Básico')
     print('2 - Plano Interprise')
@@ -46,10 +46,10 @@ def selecao_plano():
     print()
     return int(input('Digite o plano desejado: '))
 
-def menu_relatorios(self):
+def menu_relatorios():
     print()
     print('=' * 50)
-    print('=' * 20, 'RELATÓRIOS', '=' * 20)
+    print('=' * 19, 'RELATÓRIOS', '=' * 19)
     print('=' * 50)
     print('1 - Relatório dos alunos')
     print('2 - Relatório dos professores')
@@ -59,7 +59,7 @@ def menu_relatorios(self):
 def menu_relatorio_aluno():
     print()
     print('=' * 50)
-    print('=' * 20, 'RELATÓRIO DOS ALUNOS', '=' * 20)
+    print('=' * 16, 'RELATÓRIO DOS ALUNOS', '=' * 16)
     print('=' * 50)
     print('1 - Relatório padrão (Por ID)')
     print('2 - Relatório de nomes em ordem alfabética')
@@ -71,7 +71,7 @@ def menu_relatorio_aluno():
 def menu_relatorio_professor():
     print()
     print('=' * 50)
-    print('=' * 20, 'RELATÓRIO DOS PROFESSORES', '=' * 20)
+    print('=' * 16, 'RELATÓRIO DOS PROFESSORES', '=' * 16)
     print('=' * 50) 
     print()
     print('1 - Relatório padrão (Por ID)')
@@ -84,7 +84,7 @@ def menu_relatorio_professor():
 def menu_relatorio_mensalidade():
     print()
     print('=' * 50)
-    print('=' * 20, 'RELATÓRIO DAS MENSALIDADES', '=' * 20)
+    print('=' * 16, 'RELATÓRIO DAS MENSALIDADES', '=' * 16)
     print('=' * 50) 
     print()
     print('1 - Relatório por média de mensalidade')

@@ -6,21 +6,21 @@ academia = Academia()
 
 while True:
     
-    opcao_inicial = academia.menu_inicial()
+    opcao_inicial = menus.menu_inicial()
 
     if opcao_inicial == 1:
         nome = input('Informe o seu nome completo: ')
         idade = int(input('Informe a sua idade: '))
         cpf = input('Informe o seu CPF(Sem pontuação): ')
-        id_plano = academia.selecao_plano()
+        id_plano = menus.selecao_plano()
         academia.matricular_aluno(nome, idade, cpf, id_plano)
 
     elif opcao_inicial == 2:
-        opcao_aluno = academia.menu_aluno()
+        opcao_aluno = menus.menu_aluno()
 
         if opcao_aluno == 1:
-            id_aluno = input('Informe o ID da sua conta: ')
-            academia.verificar_status_financeiro(id_aluno)
+            cpf = input('Informe o CPF da sua conta: ')
+            academia.verificar_status_financeiro(cpf)
         elif opcao_aluno == 2:
             id_aluno = input('Informe o seu ID: ')
             academia.desmatricular_aluno(id_aluno)
@@ -29,7 +29,7 @@ while True:
 
     elif opcao_inicial == 3:
 
-        opcao_coordenador = academia.menu_coordenador()
+        opcao_coordenador = menus.menu_coordenador()
 
         if opcao_coordenador == 1:
             academia.listar_alunos()
