@@ -1,7 +1,7 @@
+from sqlalchemy import String, Numeric
+from sqlalchemy.orm import Mapped, mapped_column
 
-class Professor:
-    def __init__(self, nome, idade, cpf, especialidade):
-        self.nome = nome
-        self.idade = idade
-        self.cpf = cpf
-        self.especialidade = especialidade
+from database.connection import Base
+
+class Professor(Base):
+    __tablename__ = 'professores'

@@ -1,10 +1,7 @@
-from .mensalidade import Mensalidade
-from .plano import Plano
+from sqlalchemy import String, Numeric 
+from sqlalchemy.orm import Mapped, mapped_column
 
-class Aluno:
-    def __init__(self, nome, idade, cpf, plano):
-        self.nome = nome
-        self.idade = idade
-        self.cpf = cpf
-        self.plano = plano
-        self.status_do_contrato = True
+from database.connection import Base
+
+class Aluno(Base):
+    __tablename__ = 'alunos'
