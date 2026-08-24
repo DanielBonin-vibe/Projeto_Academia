@@ -1,0 +1,42 @@
+CREATE TABLE IF NOT EXISTS planos(
+	id_plano INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
+	nome_plano TEXT NOT NULL UNIQUE, 
+	valor NUMERIC(10, 2) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS alunos(
+	id_aluno INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nome TEXT NOT NULL,
+	idade INTEGER NOT NULL,
+	cpf TEXT NOT NULL UNIQUE,
+	id_plano INTEGER NOT NULL,
+
+	FOREIGN KEY(id_plano) REFERENCES planos(id_plano)
+);
+
+CREATE TABLE IF NOT EXISTS professores(
+	id_professor INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	nome TEXT NOT NULL, 
+	idade INTEGER NOT NULL,
+	cpf TEXT NOT NULL UNIQUE,
+	especialdiade TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS mensalidades(
+	id_mensalidade INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	id_aluno INTEGER NOT NULL,
+	id_plano INTEGER NOT NULL,
+	pago BOOLEAN NOT NULL DEFAULT FALSE, 
+
+	FOREIGN KEY(id_aluno) REFERENCES alunos(id_aluno),
+	FOREIGN KEY(id_plano) REFERENCES planos(id_plano)
+);
+
+INSERT INTO planos (nome_plano, valor)
+VALUES
+    ('Básico', 79.99),
+    ('Intermediário', 99.99),
+    ('Deluxe', 150.00)
+ON CONFLICT (nome_plano) DO NOTHING;
+
+SELECT * FROM planos;

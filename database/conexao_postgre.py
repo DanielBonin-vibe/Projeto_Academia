@@ -6,7 +6,7 @@ def conectar():
         user='postgres',
         password='B@nin180506',
         host='localhost',
-        posrt='5432',
+        port='5432',
         connect_timeout=5
     )
 
