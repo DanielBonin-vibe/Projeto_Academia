@@ -4,70 +4,111 @@ from database.conexao_postgre import conectar
 # Cadastros:
 
 def cadastro_aluno(nome, idade, cpf, id_plano):
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    INSERT INTO aluno(nome, idade, cpf, id_plano)
-    VALUES(?, ?, ?, ?)
+    INSERT INTO alunos(nome, idade, cpf, id_plano)
+    VALUES(%s, %s, %s, %s)
+    RETURN id_aluno
     """, (nome, idade, cpf, id_plano))
 
-    id_aluno = cursor.lastrowid     # pega o ID que acabou de ser criado para o aluno
+    id_aluno = cursor.fetchone()[0]
 
     cursor.execute("""
-    INSERT INTO mensalidade (id_aluno, id_plano)
-    VALUES(?, ?)
+    INSERT INTO mensalidades (id_aluno, id_plano)
+    VALUES (%s, %s)
     """, (id_aluno, id_plano))
 
-    teste = cursor.fetchone()
-
-    print("DADO SALVO:", teste)
 
     conexao.commit()
+    cursor.close()
     conexao.close()
+
+    return {'mensagem': f'O ID do aluno é {id_aluno}'}
 
 def cadastro_professor(nome, idade, cpf, especialidade):
-    conexao =  sqlite3.connect('database/academia.db')
+    conexao =  conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    INSERT INTO professor(nome, idade, cpf, especialidade)
-    VALUES(?, ?, ?, ?)
+    INSERT INTO professores(nome, idade, cpf, especialidade)
+    VALUES(%s, %s, %s, %s)
+    RETURNING id_professor
     """, (nome, idade, cpf, especialidade))
 
+    id_professor = cursor.fetchone()[0]
+
     conexao.commit()
+    cursor.close()
     conexao.close()
+
+    return {'mensagem': f'O ID do aluno é {id_professor}'}
 
 def descadastrar_aluno(cpf):
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
-    print(f"CPF recebido: {cpf}")
+    cursor.execute("""
+        SELECT id_aluno
+        FROM alunos
+        WHERE cpf = %s
+    """, (cpf,))
+    aluno = cursor.fetchone()
+
+    if aluno is None:
+        cursor.close()
+        conexao.close()
+        return {'mensagem': 'Aluno não encontrado'}
+
+    id_aluno = aluno[0]
 
     cursor.execute("""
-    DELETE FROM aluno
-    WHERE cpf = ?
-    """, (cpf,))
+        SELECT COUNT(*)
+        FROM mensalidades
+        WHERE id_aluno = %s
+        AND pago = FALSE
+    """, (id_aluno,))
 
-    quantidade = cursor.rowcount
+    mensalidades_pendentes = cursor.fetchone()[0]
+
+    if mensalidades_pendentes > 0:
+        cursor.close()
+        conexao.close()
+
+        return {
+            'mensagem': 'Não é possível excluir o aluno. Existem mensalidades pendentes.'
+        }
+
+    cursor.execute("""
+        DELETE FROM mensalidades
+        WHERE id_aluno = %s
+    """, (id_aluno,))
+
+    cursor.execute("""
+        DELETE FROM alunos
+        WHERE id_aluno = %s
+    """, (id_aluno,))
 
     conexao.commit()
+    cursor.close()
     conexao.close()
 
-    return quantidade
+    return {'mensagem': 'Aluno descadastrado com sucesso'}
 
 def descadastrar_professor(cpf_professor):
-    conexao =  sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    DELETE FROM professor
-    WHERE cpf = ?
-    """, (cpf_professor))
+    DELETE FROM professores
+    WHERE cpf = %s
+    """, (cpf_professor,))
 
     quantidade = cursor.rowcount
 
     conexao.commit()
+    cursor.close()
     conexao.close()
 
     return quantidade
