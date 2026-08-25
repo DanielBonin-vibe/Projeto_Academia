@@ -117,41 +117,43 @@ def descadastrar_professor(cpf_professor):
 # Listagem
 
 def listagem_alunos():
-    conexao =  sqlite3.connect('database/academia.db')
+    conexao =  conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT * FROM aluno
+    SELECT * FROM alunos
     """)
     
     listagem = cursor.fetchall()
 
     cursor.execute("""
-    SELECT COUNT(*) FROM aluno
+    SELECT COUNT(*) FROM alunos
     """)
 
     total = cursor.fetchone()[0]
 
+    cursor.close()
     conexao.close()
 
     return listagem, total
 
 def listagem_professor():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT * FROM professor
+    SELECT * FROM professores
     """)
 
     listagem = cursor.fetchall()
 
     cursor.execute("""
-    SELECT COUNT(*) FROM professor
+    SELECT COUNT(*) FROM professores
     """)
 
     total = cursor.fetchone()[0]
 
+    cursor.close()
     conexao.close()
 
     return listagem, total
