@@ -229,21 +229,22 @@ def pesquisa_professor_nome(nome_professor_informado):
 # Ações:
 
 def verificacao_status_financeiro(cpf): 
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
     SELECT mensalidade.id_plano, plano.nome_plano, plano.valor, mensalidade.pago
-    FROM mensalidade
-    JOIN plano
-        ON mensalidade.id_plano = plano.id_plano
-    JOIN aluno
-        ON mensalidade.id_aluno = aluno.id_aluno
-    WHERE aluno.cpf = ?
+    FROM mensalidades
+    JOIN planos
+        ON mensalidades.id_plano = planos.id_plano
+    JOIN alunos
+        ON mensalidades.id_aluno = alunos.id_aluno
+    WHERE alunos.cpf = ?
     """, (cpf,))
 
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
+    cursor.close()
     conexao.close()
 
     return resultado
@@ -252,11 +253,11 @@ def verificacao_status_financeiro(cpf):
 # Relatórios aluno:
 
 def relatorio_aluno_padrao():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT * FROM aluno
+    SELECT * FROM alunos
     """)
 
     relatorio = cursor.fetchall()
@@ -272,14 +273,15 @@ def relatorio_aluno_padrao():
         print(f'PLANO: {aluno[4]}')
         print()
 
+    cursor.close()
     conexao.close()
 
 def relatorio_aluno_nome_ordem_alfabetica():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT * FROM aluno
+    SELECT * FROM alunos
     ORDER BY nome ASC
     """)
 
@@ -296,22 +298,24 @@ def relatorio_aluno_nome_ordem_alfabetica():
         print(f'PLANO: {aluno[4]}')
         print()
 
+    cursor.close()
     conexao.close()
 
 def relatorio_aluno_media_idade():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
     SELECT
         CASE
+            WHEN idade < 14 THEN '<14, Precisam de autorização.'
             WHEN idade BETWEEN 14 AND 17 THEN '14 a 17'
             WHEN idade BETWEEN 18 AND 30 THEN '18 a 30'
-            WHEN idade BETWEEN 31 AND 50 THEN '31 a 40'
+            WHEN idade BETWEEN 31 AND 50 THEN '31 a 50'
             ELSE '51+'
         END AS faixa_etaria,
         COUNT(*) quantidade
-    FROM aluno
+    FROM alunos
     GROUP BY faixa_etaria
     ORDER BY faixa_etaria;
     """) 
@@ -326,33 +330,40 @@ def relatorio_aluno_media_idade():
         print(f'Total: {faixa[1]}')
         print()
 
+    cursor.close()
     conexao.close()
 
+    return faixas
+
 def relatorio_aluno_plano():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT aluno.id_aluno, plano.nome_plano FROM aluno
-    JOIN plano
-        ON aluno.id_plano = plano.id_plano;
+    SELECT aluno.id_aluno, plano.nome_plano FROM alunos
+    JOIN planos
+        ON alunos.id_plano = planos.id_plano;
     """)
 
     planos = cursor.fetchall()
+
     for plano in planos:
         print(plano[0], plano[1])
 
+    cursor.close()
     conexao.close()
+
+    return planos
 
 ####################################################################################################
 # Relatórios professor:
 
 def relatorio_professor_padrao():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT * FROM professor
+    SELECT * FROM professores
     """)
 
     professores = cursor.fetchall()
@@ -368,12 +379,17 @@ def relatorio_professor_padrao():
         print(f'ESPECIALIDADE: {professor[4]}')
         print()
 
+    cursor.close()
+    conexao.close()
+
+    return professores
+
 def relatorio_professor_nome_ordem_alfabetica():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT * FROM professor
+    SELECT * FROM professores
     ORDER BY nome ASC
     """)
 
@@ -390,13 +406,19 @@ def relatorio_professor_nome_ordem_alfabetica():
         print(f'ESPECIALIDADE: {professor[4]}')
         print()
 
+    cursor.close()
+    conexao.close()
+
+    return professores
+
 def relatorio_professor_media_idade():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
     SELECT
         CASE 
+            WHEN idade < 18 THEN 'Menor de idade, apenas estágio.'
             WHEN idade BETWEEN 18 AND 25 THEN '18 a 25'
             WHEN idade BETWEEN 26 AND 40 THEN '26 a 40'
             WHEN idade BETWEEN 41 AND 60 THEN '41 a 60'
@@ -418,10 +440,13 @@ def relatorio_professor_media_idade():
         print(f'Total: {faixa[1]}')
         print()
 
+    cursor.close()
     conexao.close()
 
+    return faixas
+
 def relatorio_professor_especialidade():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
@@ -431,7 +456,7 @@ def relatorio_professor_especialidade():
         idade,
         cpf,
         especialidade
-    FROM professor
+    FROM professores
     ORDER BY especialidade ASC
     """)
 
@@ -449,6 +474,9 @@ def relatorio_professor_especialidade():
         print()
 
     cursor.close()
+    conexao.close()
+
+    return professores
 
 ##############################################################################
 # Relatórios mensalidade:
