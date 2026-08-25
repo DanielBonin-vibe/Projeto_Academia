@@ -482,25 +482,28 @@ def relatorio_professor_especialidade():
 # Relatórios mensalidade:
 
 def relatorio_mensalidade_media():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT AVG(valor) FROM plano
+    SELECT AVG(valor) FROM planos
     """)
 
     resultado = cursor.fetchone()
 
-    print(f'MÉDIA MENSAL: R$ {resultado[0]}')
+    print(f"MÉDIA DOS PLANOS: R$ {resultado[0]}")
 
     cursor.close()
+    conexao.close()
+
+    return resultado[0]
 
 def relatorio_mensalidade_situacao():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT pago FROM mensalidade
+    SELECT pago FROM mensalidades
     """)
 
     dado = cursor.fetchall()
@@ -511,22 +514,25 @@ def relatorio_mensalidade_situacao():
         else:
             print('Pagamento concluído')    
 
+    cursor.close()
     conexao.close()
 
+    return dado
+
 def relatorio_mensalidade_faturamento():
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
     SELECT 
         SUM(plano.valor) AS faturamento_esperado,
         SUM(CASE
-            WHEN mensalidade.pago = 1 THEN plano.valor
+            WHEN mensalidades.pago = 1 THEN planos.valor
             ELSE 0
         END) AS faturamento_recebido
-    FROM mensalidade
-    JOIN plano
-        ON mensalidade.id_plano = plano.id_plano
+    FROM mensalidades
+    JOIN planos
+        ON mensalidades.id_plano = planos.id_plano
     """)
 
     faturamento = cursor.fetchone()
@@ -536,3 +542,5 @@ def relatorio_mensalidade_faturamento():
 
     cursor.close()
     conexao.close()
+
+    return faturamento
