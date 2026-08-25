@@ -162,61 +162,65 @@ def listagem_professor():
 # Pesquisas:
    
 def pesquisa_aluno_id(id_aluno_informado):
-    conexao =  sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT id_aluno FROM aluno
-    WHERE id_aluno = ?
-    """, (id_aluno_informado))[1]
+    SELECT id_aluno FROM alunos
+    WHERE id_aluno = %s
+    """, (id_aluno_informado,))
 
     resultado = cursor.fetchone()
 
+    cursor.close()
     conexao.close()
 
     return resultado
 
 def pesquisa_aluno_nome(nome_informado):
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT * FROM aluno
-    WHERE nome LIKE ?
-    """, (f'%{nome_informado}%'))
+    SELECT * FROM alunos
+    WHERE nome LIKE %s
+    """, (f'%{nome_informado}%',))
 
     resultado = cursor.fetchone()[3]
 
+    cursor.close()
     conexao.close()
 
     return resultado 
 
 def pesquisa_professor_id(id_informado):
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT * FROM professor
-    WHERE id_professor = ?
+    SELECT * FROM professores
+    WHERE id_professor = %s
     """, (id_informado,))
 
     resultado = cursor.fetchone()[1]
 
+    cursor.close()
     conexao.close()
 
     return resultado
 
 def pesquisa_professor_nome(nome_professor_informado):
-    conexao = sqlite3.connect('database/academia.db')
+    conexao = conectar()
     cursor = conexao.cursor()
 
     cursor.execute("""
-    SELECT * FROM professor
-    WHERE nome LIKE ?
+    SELECT * FROM professores
+    WHERE nome LIKE %s
     """, (f'%{nome_professor_informado}%',))
 
     resultado = cursor.fetchone()[3]
 
+    cursor.close()
     conexao.close()
 
     return resultado
