@@ -3,30 +3,6 @@ from database.conexao_postgre import conectar
 #####################################################################
 # Cadastros:
 
-def cadastro_aluno(nome, idade, cpf, id_plano):
-    conexao = conectar()
-    cursor = conexao.cursor()
-
-    cursor.execute("""
-    INSERT INTO alunos(nome, idade, cpf, id_plano)
-    VALUES(%s, %s, %s, %s)
-    RETURN id_aluno
-    """, (nome, idade, cpf, id_plano))
-
-    id_aluno = cursor.fetchone()[0]
-
-    cursor.execute("""
-    INSERT INTO mensalidades (id_aluno, id_plano)
-    VALUES (%s, %s)
-    """, (id_aluno, id_plano))
-
-
-    conexao.commit()
-    cursor.close()
-    conexao.close()
-
-    return {'mensagem': f'O ID do aluno é {id_aluno}'}
-
 def cadastro_professor(nome, idade, cpf, especialidade):
     conexao =  conectar()
     cursor = conexao.cursor()
@@ -116,26 +92,7 @@ def descadastrar_professor(cpf_professor):
 #######################################################################
 # Listagem
 
-def listagem_alunos():
-    conexao =  conectar()
-    cursor = conexao.cursor()
 
-    cursor.execute("""
-    SELECT * FROM alunos
-    """)
-    
-    listagem = cursor.fetchall()
-
-    cursor.execute("""
-    SELECT COUNT(*) FROM alunos
-    """)
-
-    total = cursor.fetchone()[0]
-
-    cursor.close()
-    conexao.close()
-
-    return listagem, total
 
 def listagem_professor():
     conexao = conectar()
