@@ -26,7 +26,10 @@ CREATE TABLE IF NOT EXISTS mensalidades(
 	id_mensalidade INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	id_aluno INTEGER NOT NULL,
 	id_plano INTEGER NOT NULL,
-	pago BOOLEAN NOT NULL DEFAULT FALSE, 
+
+	valor NUMERIC(10, 2) NOT NULL,
+	data_vencimento DATE NOT NULL, 
+	data_pagamento DATE,  
 
 	FOREIGN KEY(id_aluno) REFERENCES alunos(id_aluno),
 	FOREIGN KEY(id_plano) REFERENCES planos(id_plano)
@@ -39,4 +42,3 @@ VALUES
     ('Deluxe', 150.00)
 ON CONFLICT (nome_plano) DO NOTHING;
 
-SELECT * FROM planos;
