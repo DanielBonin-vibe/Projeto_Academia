@@ -1,0 +1,13 @@
+def menu_alunos():
+    print('=' * 50)
+    print('=' * 20, 'MENU ALUNO', '=' * 20)
+    print('=' * 50)
+    print('[1] Cadastrar aluno')
+    print('[2] Listar alunos')
+    print('[3] Buscar aluno')
+    print('[4] Alterar aluno')
+    print('[5] Excluir aluno')
+    print('[6] Ver mensalidades do aluno')
+    print('[0] Voltar')
+    print("=" * 50)
+    return int(input('Selecione uma opção: '))

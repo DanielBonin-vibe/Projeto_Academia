@@ -1,0 +1,11 @@
+def menu_mensalidades():
+    print('=' * 50)
+    print('=' * 20, 'MENU MENSALIDADES', '=' * 20)
+    print('=' * 50)
+    print('[1] Registrar mensalidade')
+    print('[2] Listar mensalidades')
+    print('[3] Buscar pagamento')
+    print('[4] Consultar mensalidade')
+    print('[0] Voltar')
+    print("=" * 50)
+    return int(input('Selecione uma opção: '))

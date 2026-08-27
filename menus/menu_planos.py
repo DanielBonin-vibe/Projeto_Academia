@@ -1,0 +1,12 @@
+def menu_planos():
+    print('=' * 50)
+    print('=' * 20, 'MENU PLANOS', '=' * 20)
+    print('=' * 50)
+    print('[1] Cadastrar plano')
+    print('[2] Listar planos')
+    print('[3] Buscar plano')
+    print('[4] Alterar plano')
+    print('[5] Excluir plano')
+    print('[0] Voltar')
+    print("=" * 50)
+    return int(input('Selecione uma opção: '))

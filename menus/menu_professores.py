@@ -1,0 +1,12 @@
+def menu_professores():
+    print('=' * 50)
+    print('=' * 20, 'MENU PROFESSOR', '=' * 20)
+    print('=' * 50)
+    print('[1] Cadastrar professor')
+    print('[2] Listar professor')
+    print('[3] Buscar professor')
+    print('[4] Alterar professor')
+    print('[5] Excluir professor')
+    print('[0] Voltar')
+    print("=" * 50)
+    return int(input('Selecione uma opção: '))

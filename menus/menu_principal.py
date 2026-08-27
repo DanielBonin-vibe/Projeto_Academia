@@ -1,0 +1,13 @@
+def menu_principal():
+    print('=' * 40)
+    print('=' * 15, 'PROJETO ACADEMIA','=' * 15)
+    print('=' * 40)
+    print()
+    print('[1] - Alunos')
+    print('[2] - Planos')
+    print('[3] - Mensalidades')
+    print('[4] - Professores')
+    print('[5] - Relatórios')
+    print('[6] - Consultas')
+    print('[0] - Exit')
+    return int(input('Digite a seleção desejada: '))
