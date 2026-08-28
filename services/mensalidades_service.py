@@ -36,7 +36,48 @@ def registrar_mensalidade_service(cpf):
                 5
             )
 
-    resultado = alunos_repository.registrar_mensalidade(id_aluno, id_plano, valor, data_vencimento)
+    resultado = mensalidades_repository.registrar_mensalidade(id_aluno, id_plano, valor, data_vencimento)
 
     if resultado == 0:
         return 'Não foi possível registrar a mensalidade.'
+
+    return 'Mensalidade registrada com sucesso.'
+
+
+
+
+def listar_mensalidades_service(cpf):
+
+    if cpf is None or not cpf.trip():
+        return 'Prrencha o campo CPF.'
+
+    aluno = alunos_repository.buscar_aluno(cpf)
+
+    if aluno is None:
+        return 'O CPF informado não está vinculado a nenhum aluno.'
+
+
+    resultado = mensalidades_repository.listar_mensalidades(cpf)
+
+    if not resultado:
+        return 'Não foi possível listar as mensalidades'
+
+    return resultado
+
+def buscar_pagamento_service(cpf):
+
+    if cpf is None or not cpf.strip():
+        return 'Preencha o campo CPF.'
+
+    aluno = alunos_repository.buscar_aluno(cpf)
+
+    if aluno is None:
+        return 'O CPF infroma não está vinculado a nenhum aluno.'
+
+
+    resultado = mensalidades_repository.buscar_pagamento(cpf)
+
+    if not resultado:
+        return 'Não foi possível realiazar a busca.'
+
+    return resultado
