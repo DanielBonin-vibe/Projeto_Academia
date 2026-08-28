@@ -77,19 +77,28 @@ def buscar_pagamento(cpf):
         cursor.close()
         conexao.close()
 
-def consultar_mensalidade(cpf):
+def consultar_mensalidade(cpf, mes, ano):
     conexao = conectar()
     cursor = conexao.cursor()
 
     try:
         cursor.execute("""
-        
-        """)
+        SELECT * FORM mensalidades
+        WHERE id_aluno = (SELECT * FROM Alunos
+        WHERE cpf = %s)
+            AND EXTRACT(MONTH FROM data_vencimento) = %s
+            AND EXTRACT(YEAR FROM data_vencimento) %s
+        """(cpf, mes, ano))
 
-        resultado = ...
+        resultado = cursor.fetchone()
+
+        return resultado 
 
     except Exception as erro:
-        ...
+        conexao.rollback()
+        print(f'Erro ao realizar a consulta: {erro}')
+        return 0
+
     finally:
         cursor.close()
         conexao.close()

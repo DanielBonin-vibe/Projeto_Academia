@@ -81,3 +81,30 @@ def buscar_pagamento_service(cpf):
         return 'Não foi possível realiazar a busca.'
 
     return resultado
+
+def consultar_mensalidade_service(cpf, mes, ano):
+
+    if cpf is None or not cpf.strip():
+        return 'Preencha o campo CPF.'
+
+    if mes is None:
+        return 'Preencha o campo mês.'
+
+    if ano is None:
+        return 'Preencha o campo ano.'
+
+    if mes < 1 or 12 > mes:
+        return 'Mês inválido'
+
+    aluno = alunos_repository.buscar_aluno(cpf)
+
+    if aluno is None:
+        return 'O CPF não está vinculado a nenhum aluno.'
+
+    resultado = mensalidades_repository.consultar_mensalidade(cpf, mes, ano)
+
+    if resultado is None:
+        return 'Não foi possível consultar nenhuma mensalidade.'
+
+    return resultado
+    
