@@ -1,0 +1,19 @@
+
+
+def cadastro_aluno_service(nome, idade, cpf, id_plano):
+    ...
+
+def listar_aluno_service():
+    ...
+
+def buscar_aluno_service(cpf):
+    ...
+
+def alterar_plano_service(cpf, plano):
+    ...
+
+def excluir_aluno(cpf):
+    ...
+
+def mostrar_mensalidade(cpf):
+    ...

@@ -74,3 +74,86 @@ def buscar_aluno(cpf):
     finally:
         cursor.close()
         conexao.close()
+
+def alterar_plano(cpf, plano):
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        UPDATE ALUNOS
+        SET id_plano = %s
+        WHERE cpf = %s
+        """, (cpf, plano))
+
+        resultado = cursor.rowcount
+
+        conexao.commit()
+
+        return resultado
+
+    except Exception as erro:
+        conexao.rollback()
+        print(f'Erro ao alterar o plano: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
+
+def excluir_aluno(cpf):
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        DELETE FROM mensalidades
+        WHERE id_aluno =
+        (SELECT id_aluno FROM alunos 
+        WHERE cpf = %s)
+        """, (cpf,))
+
+        cursor.execute("""
+        DELETE FROM alunos
+        WHERE cpf = %s
+        """, (cpf,))
+
+        resultado = cursor.rowcount
+
+        conexao.commit()
+
+        return resultado
+
+    except Exception as erro:
+        conexao.rollback()
+        print(f'Erro a excluir aluno: {erro}')
+        return 0
+    
+    finally:
+        cursor.close()
+        conexao.close()
+
+def mostrar_mensalidade(cpf):
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        SELECT * FROM mensalidades
+        WHERE id_aluno = (
+        SELECT * FROM alunos 
+        WHERE cpf = %s)
+        """, (cpf,))
+
+        resultado = cursor.fetchall()
+
+        return resultado
+
+    except Exception as erro:
+        conexao.rollback()
+        print(f'Erro ao mostrar a mensalidade: {erro}.')
+        return 0
+        
+    finally:
+        cursor.close()
+        conexao.close()
