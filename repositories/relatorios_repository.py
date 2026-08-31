@@ -100,3 +100,126 @@ def quantidade_alunos_plano():
     finally:
         cursor.close()
         conexao.close()
+
+
+################################################
+
+def receital_total():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        SELECT SUM(valor) FROM mensalidades
+        WHERE data_pagamento IS NOT NULL
+        """)
+
+        resultado = cursor.fetchone()
+
+        return resultado
+
+    except Exception as erro:
+        print(f'Erro ao gerar relatório de quantidade de alunos por plano: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
+
+def receital_periodo():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT
+                DATE_TRUNC('month', data_pagamento) AS mes,
+                SUM(valor)
+            FROM mensalidades
+            WHERE data_pagamento IS NOT NULL
+            AND data_pagamento >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '1 month'
+            AND data_pagamento < DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '1 month'
+            GROUP BY DATE_TRUNC('month', data_pagamento)
+            ORDER BY mes
+        """)
+
+
+        resultado = cursor.fetchall()
+
+        return resultado
+
+    except Exception as erro:
+        print(f'Erro ao gerar relatório de receita por período: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
+
+def mensalidades_pagas():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        SELECT id_mensalidade, id_aluno, valor, data_vencimento FROM mensalidades
+        WHERE data_pagamento IS NOT NULL
+        ORDER BY data_pagamento DESC
+        """)
+
+        resultado = cursor.fetchall()
+
+        return resultado
+
+    except Exception as erro:
+        print(f'Erro ao gerar relatório de mensalidades pagas: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
+
+def mensalidades_pendentes():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        SELECT id_mensalidade, id_aluno, valor, data_vencimento FROM mensalidades
+        WHERE data_pagamento IS NULL
+        ORDER BY data_vencimento
+        """)
+
+        resultado = cursor.fetchall()
+
+        return resultado
+
+    except Exception as erro:
+        print(f'Erro ao gerar relatório de mensalidades pendentes: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
+
+def total_pendente():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        SELECT SUM(valor) FROM mensalidades
+        WHERE data_pagamento IS NULL
+        """)
+
+        resultado = cursor.fetchone()
+
+        return resultado
+
+    except Exception as erro:
+        print(f'Erro ao gerar relatório de mensalidades pendentes: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
