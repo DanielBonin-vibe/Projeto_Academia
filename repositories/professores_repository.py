@@ -1,14 +1,15 @@
 from database.conexao_postgre import conectar
 
+
 def cadastrar_professor(nome, idade, cpf, especialidade):
     conexao = conectar()
     cursor = conexao.cursor()
 
     try:
         cursor.execute("""
-        INSERT INTO professores (nome, idade, cpf, especiaidade)
+        INSERT INTO professores (nome, idade, cpf, especialidade)
         VALUES (%s, %s, %s, %s)
-        """, nome, idade, cpf, especialidade)
+        """, (nome, idade, cpf, especialidade))
 
         resultado = cursor.rowcount
 
@@ -24,9 +25,10 @@ def cadastrar_professor(nome, idade, cpf, especialidade):
         print(f'Erro ao cadastrar professor: {erro}.')
         return 0
 
-    finally: 
+    finally:
         cursor.close()
         conexao.close()
+
 
 def listar_professores():
     conexao = conectar()
@@ -49,6 +51,7 @@ def listar_professores():
         cursor.close()
         conexao.close()
 
+
 def buscar_professor(cpf):
     conexao = conectar()
     cursor = conexao.cursor()
@@ -59,22 +62,18 @@ def buscar_professor(cpf):
         WHERE cpf = %s
         """, (cpf,))
 
-        resultado = cursor.rowcount
+        resultado = cursor.fetchone()
 
-        if resultado > 0:
-            return resultado
-
-        conexao.rollback()
-        return 0
+        return resultado
 
     except Exception as erro:
-        conexao.rollback()
         print(f'Erro ao buscar professor: {erro}.')
-        return 0
+        return None
 
     finally:
         cursor.close()
         conexao.close()
+
 
 def alterar_professor(id_professor, nome, idade, cpf, especialidade):
     conexao = conectar()
@@ -84,13 +83,14 @@ def alterar_professor(id_professor, nome, idade, cpf, especialidade):
         cursor.execute("""
         UPDATE professores
         SET nome = %s, idade = %s, cpf = %s, especialidade = %s
-        WHERE id_aluno = %s
-        """,(nome, idade, cpf, especialidade, id_professor))
+        WHERE id_professor = %s
+        """, (nome, idade, cpf, especialidade, id_professor))
 
         resultado = cursor.rowcount
 
         if resultado > 0:
             conexao.commit()
+            return resultado
 
         conexao.rollback()
         return 0
@@ -104,6 +104,7 @@ def alterar_professor(id_professor, nome, idade, cpf, especialidade):
         cursor.close()
         conexao.close()
 
+
 def excluir_professor(cpf):
     conexao = conectar()
     cursor = conexao.cursor()
@@ -112,18 +113,20 @@ def excluir_professor(cpf):
         cursor.execute("""
         DELETE FROM professores
         WHERE cpf = %s
-        """,(cpf,))
+        """, (cpf,))
+
         resultado = cursor.rowcount
 
         if resultado > 0:
             conexao.commit()
+            return resultado
 
         conexao.rollback()
         return 0
 
     except Exception as erro:
         conexao.rollback()
-        print(f'Erro ao alterar professor: {erro}.')
+        print(f'Erro ao excluir professor: {erro}.')
         return 0
 
     finally:
