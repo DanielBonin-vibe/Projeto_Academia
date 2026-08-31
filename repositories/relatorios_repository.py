@@ -269,3 +269,116 @@ def professor_especialidade():
     finally:
         cursor.close()
         conexao.close()
+
+#############################################
+
+def mensalidades_mes():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        SELECT * FROM mensalidades
+        WHERE data_vencimento >= DATE_TRUNC('month', CURRENT_DATE)
+        AND data_vencimento < DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '1 month'
+        """)
+
+        resultado = cursor.fetchall()
+
+        return resultado
+
+    except Exception as erro:
+        print(f'Erro ao gerar relatório de mensalidade por mês: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
+
+def mensalidades_pagas():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        SELECT * FROM mensalidades
+        WHERE data_pagamento IS NOT NULL
+        AND data_pagamento >= DATE_TRUNC('month', CURRENT_DATE)
+        AND data_pagamento < ('month' DATE_TRUNC) + INTERVAL '1 month'
+        """)
+
+        resultado = cursor.fetchall()
+
+        return resultado
+
+    except Exception as erro:
+        print(f'Erro ao gerar relatório de mensalidade por mês pagas: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
+
+def mensalidades_pendentes():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        SELECT * FROM mensalidades
+        WHERE data_pagamento IS NULL
+        AND data_vencimento >= DATA_TRUNC('month' CURRENT_DATA)
+        AND data_vencimento < DATA_TRUNC('month' CURRENT_DATA) + INTERVAL '1 month'
+        """)
+
+        resultado = cursor.fetchall()
+
+        return resultado
+
+    except Exception as erro:
+        print(f'Erro ao gerar relatório de mensalidade por mês pagas: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
+
+def percentual_inadimplencia():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        SELECT COUNT(*) FROM mensalidades
+        WHERE data_pagamento IS NOT NULL
+        AND data_pagamento >= DATE_TRUNC('month', CURRENT_DATE)
+        AND data_pagamento < ('month' DATE_TRUNC) + INTERVAL '1 month'
+        """)
+
+        pagas = cursor.fetchone()[0]
+
+        cursor.execute("""
+        SELECT COUNT(*) FROM mensalidades
+        WHERE data_pagamento IS NULL
+        AND data_vencimento >= DATA_TRUNC('month' CURRENT_DATA)
+        AND data_vencimento < DATA_TRUNC('month' CURRENT_DATA) + INTERVAL '1 month'
+        """)
+
+        pendentes = cursor.fetchone()[0]
+
+        total = pagas + pendentes 
+
+        if total == 0:
+            return 0
+
+        percentual = (pendentes / total) * 100
+
+        return percentual
+
+    except Exception as erro:
+        print(f'Erro ao gerar relatório de mensalidade por mês pagas: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
