@@ -70,3 +70,60 @@ def buscar_plano(id_plano):
     finally:
         cursor.close()
         conexao.close()
+
+def alterar_plano(id_plano, cpf):
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        UPDATE alunos 
+        SET id_plano = %s
+        WHERE cpf = %s
+        """, (id_plano, cpf))
+
+        resultado = cursor.rowcount
+
+        if resultado > 0:
+            conexao.commit()
+            return resultado
+
+        conexao.rollback()
+        return 0
+
+    except Exception as erro:
+        conexao.rollback()
+        print(f'Erro ao alterar plano: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
+
+def excluir_plano(id_plano):
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        DELETE FROM planos
+        WHERE id_plano = %s
+        """, (id_plano,))
+
+        resultado = cursor.rowcount
+
+        if resultado > 0:
+            conexao.commit()
+            return resultado
+
+        conexao.rollback()
+        return 0
+
+    except Exception as erro:
+        conexao.rollback()
+        print(f'Erro ao excluir plano: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
