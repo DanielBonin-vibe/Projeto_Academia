@@ -217,7 +217,53 @@ def total_pendente():
         return resultado
 
     except Exception as erro:
-        print(f'Erro ao gerar relatório de mensalidades pendentes: {erro}.')
+        print(f'Erro ao gerar relatório de valor total de mensalidades pendentes: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
+
+##################################################################
+
+def ordem_alfabetica_professores():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        SELECT * FROM professores
+        ORDER BY nome DESC
+        """)
+
+        resultado = cursor.fetchall()
+
+        return resultado
+
+    except Exception as erro:
+        print(f'Erro ao gerar relatório de professores em ordem alfabética: {erro}.')
+        return 0
+
+    finally:
+        cursor.close()
+        conexao.close()
+
+def professor_especialidade():
+    conexao = conectar()
+    cursor = conexao.cursor()
+
+    try:
+        cursor.execute("""
+        SELECT * FROM professores
+        ORDER BY especialidade ASC
+        """)
+
+        resultado = cursor.fetchall()
+
+        return resultado
+
+    except Exception as erro:
+        print(f'Erro ao gerar relatório de professores por especialidade: {erro}.')
         return 0
 
     finally:
